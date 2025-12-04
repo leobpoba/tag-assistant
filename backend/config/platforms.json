@@ -1,0 +1,605 @@
+{
+  "_metadata": {
+    "source": "Scope3 AdLoox Platforms",
+    "last_updated": "2024-12-04",
+    "total_platforms": 86,
+    "notes": "Includes client-specific platform variations (Cofidis, SNCF, etc.)"
+  },
+  "platforms": [
+    {
+      "id": "meta",
+      "name": "Meta",
+      "aliases": ["Facebook", "Meta Ads"],
+      "active": true,
+      "priority": 1
+    },
+    {
+      "id": "dv360",
+      "name": "Google DV360",
+      "aliases": ["DV360", "Google Display", "Display & Video 360", "Adventori_dv360_oui_sncf", "dv360_cofidis"],
+      "active": true,
+      "priority": 2
+    },
+    {
+      "id": "gam",
+      "name": "Google Ad Manager",
+      "aliases": ["GAM", "DFP", "DoubleClick for Publishers", "gam_gpt", "gam_video", "gam_gpt_abmedia_rtbdemand", "gam_gpt_adasia", "gam_gpt_woso_ads_network", "gam_gpt_abmedia", "gam_goodbuy_media", "gam_gpt_boursorama", "gam_survivornet", "gam_cofidis", "gam_gpt_alchemy_group", "dfp_366", "dfp_issmedia", "dfp_ooreka", "dfp_mbdiffusion", "dfp_gpt_businsurance", "dfp_lbc", "dfp_gpt"],
+      "active": true,
+      "priority": 3
+    },
+    {
+      "id": "gdn",
+      "name": "Google Display Network",
+      "aliases": ["GDN"],
+      "active": true,
+      "priority": 4
+    },
+    {
+      "id": "thetradedesk",
+      "name": "The Trade Desk",
+      "aliases": ["TTD", "Trade Desk", "tradedesk", "the_trade_desk_cofidis"],
+      "active": true,
+      "priority": 5
+    },
+    {
+      "id": "adnxs",
+      "name": "Xandr",
+      "aliases": ["AppNexus", "Microsoft Advertising", "adnxs_cofidis", "adnxs_cbm", "adnxs_solocal"],
+      "active": true,
+      "priority": 6
+    },
+    {
+      "id": "criteo",
+      "name": "Criteo",
+      "aliases": ["Criteo Commerce"],
+      "active": true,
+      "priority": 7
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon Advertising",
+      "aliases": ["Amazon DSP", "Amazon Ads"],
+      "active": true,
+      "priority": 8
+    },
+    {
+      "id": "teads",
+      "name": "Teads",
+      "aliases": ["Teads Ad Platform"],
+      "active": true,
+      "priority": 9
+    },
+    {
+      "id": "taboola",
+      "name": "Taboola",
+      "aliases": ["Taboola Feed"],
+      "active": true,
+      "priority": 10
+    },
+    {
+      "id": "outbrain",
+      "name": "Outbrain",
+      "aliases": ["Outbrain Amplify"],
+      "active": true,
+      "priority": 11
+    },
+    {
+      "id": "smart",
+      "name": "Smart AdServer",
+      "aliases": ["Equativ", "smart", "equativ_gmc_media", "equativ_366", "equativ_erold"],
+      "active": true,
+      "priority": 12
+    },
+    {
+      "id": "adform",
+      "name": "Adform",
+      "aliases": ["adform", "adform_cofidis"],
+      "active": true,
+      "priority": 13
+    },
+    {
+      "id": "mediamath",
+      "name": "MediaMath",
+      "aliases": ["Terminus"],
+      "active": true,
+      "priority": 14
+    },
+    {
+      "id": "amobee",
+      "name": "Amobee",
+      "aliases": ["Amobee DSP"],
+      "active": true,
+      "priority": 15
+    },
+    {
+      "id": "quantcast",
+      "name": "Quantcast",
+      "aliases": ["Quantcast Platform"],
+      "active": true,
+      "priority": 16
+    },
+    {
+      "id": "yahoo",
+      "name": "Yahoo Advertising",
+      "aliases": ["Yahoo", "Verizon Media", "Verizon", "verizonmedia", "verizon", "gemini"],
+      "active": true,
+      "priority": 17
+    },
+    {
+      "id": "yandex",
+      "name": "Yandex",
+      "aliases": ["Yandex Direct"],
+      "active": true,
+      "priority": 18
+    },
+    {
+      "id": "rtb_house",
+      "name": "RTB House",
+      "aliases": ["rtb_house", "rtb_house_cofidis"],
+      "active": true,
+      "priority": 19
+    },
+    {
+      "id": "clickforce",
+      "name": "ClickForce",
+      "aliases": ["ClickForce"],
+      "active": true,
+      "priority": 20
+    },
+    {
+      "id": "zeta_global",
+      "name": "Zeta Global",
+      "aliases": ["Zeta DSP"],
+      "active": true,
+      "priority": 21
+    },
+    {
+      "id": "smadex",
+      "name": "Smadex",
+      "aliases": ["Smadex DSP"],
+      "active": true,
+      "priority": 22
+    },
+    {
+      "id": "beeswax",
+      "name": "Beeswax",
+      "aliases": ["Beeswax DSP"],
+      "active": true,
+      "priority": 23
+    },
+    {
+      "id": "infectious",
+      "name": "Infectious Media",
+      "aliases": ["Infectious Media"],
+      "active": true,
+      "priority": 24
+    },
+    {
+      "id": "vertamedia",
+      "name": "Vertamedia",
+      "aliases": ["Vertamedia"],
+      "active": true,
+      "priority": 25
+    },
+    {
+      "id": "admedo",
+      "name": "Admedo",
+      "aliases": ["Admedo"],
+      "active": true,
+      "priority": 26
+    },
+    {
+      "id": "abc",
+      "name": "ABC",
+      "aliases": ["ABC"],
+      "active": true,
+      "priority": 27
+    },
+    {
+      "id": "adamin_technologies",
+      "name": "Adamin Technologies",
+      "aliases": ["Adamin"],
+      "active": true,
+      "priority": 28
+    },
+    {
+      "id": "digiteka",
+      "name": "Digiteka",
+      "aliases": ["Digiteka"],
+      "active": true,
+      "priority": 29
+    },
+    {
+      "id": "unionmediagroup",
+      "name": "Union Media Group",
+      "aliases": ["Union Media"],
+      "active": true,
+      "priority": 30
+    },
+    {
+      "id": "innovid",
+      "name": "Innovid",
+      "aliases": ["Innovid Platform"],
+      "active": true,
+      "priority": 31
+    },
+    {
+      "id": "verve",
+      "name": "Verve",
+      "aliases": ["Verve Group", "Smaato"],
+      "active": true,
+      "priority": 32
+    },
+    {
+      "id": "invibes",
+      "name": "Invibes",
+      "aliases": ["Invibes", "zebestof_ib", "solocal_ib"],
+      "active": true,
+      "priority": 33
+    },
+    {
+      "id": "crimtan",
+      "name": "Crimtan",
+      "aliases": ["Crimtan"],
+      "active": true,
+      "priority": 34
+    },
+    {
+      "id": "jun_group_display",
+      "name": "Jun Group",
+      "aliases": ["Jun Group Display"],
+      "active": true,
+      "priority": 35
+    },
+    {
+      "id": "wcm",
+      "name": "WCM",
+      "aliases": ["WCM"],
+      "active": true,
+      "priority": 36
+    },
+    {
+      "id": "adtechnacity",
+      "name": "AdTechnacity",
+      "aliases": ["AdTechnacity"],
+      "active": true,
+      "priority": 37
+    },
+    {
+      "id": "internal_mailru",
+      "name": "Mail.ru",
+      "aliases": ["Mail.ru Internal"],
+      "active": true,
+      "priority": 38
+    },
+    {
+      "id": "fast_company_dcm",
+      "name": "Fast Company DCM",
+      "aliases": ["Fast Company"],
+      "active": true,
+      "priority": 39
+    },
+    {
+      "id": "gazprom",
+      "name": "Gazprom Media",
+      "aliases": ["Gazprom"],
+      "active": true,
+      "priority": 40
+    },
+    {
+      "id": "dailymotion",
+      "name": "Dailymotion",
+      "aliases": ["Dailymotion Advertising"],
+      "active": true,
+      "priority": 41
+    },
+    {
+      "id": "debug",
+      "name": "Debug",
+      "aliases": ["Debug Platform"],
+      "active": true,
+      "priority": 42
+    },
+    {
+      "id": "seedtag",
+      "name": "Seedtag",
+      "aliases": ["Seedtag"],
+      "active": true,
+      "priority": 43
+    },
+    {
+      "id": "nanointeractive",
+      "name": "NanoInteractive",
+      "aliases": ["NanoInteractive"],
+      "active": true,
+      "priority": 44
+    },
+    {
+      "id": "wikio",
+      "name": "Wikio",
+      "aliases": ["Wikio"],
+      "active": true,
+      "priority": 45
+    },
+    {
+      "id": "antvoice",
+      "name": "Antvoice",
+      "aliases": ["Antvoice"],
+      "active": true,
+      "priority": 46
+    },
+    {
+      "id": "nativo",
+      "name": "Nativo",
+      "aliases": ["Nativo Platform"],
+      "active": true,
+      "priority": 47
+    },
+    {
+      "id": "liftoff",
+      "name": "Liftoff",
+      "aliases": ["Liftoff Mobile"],
+      "active": true,
+      "priority": 48
+    },
+    {
+      "id": "springserve",
+      "name": "SpringServe",
+      "aliases": ["SpringServe"],
+      "active": true,
+      "priority": 49
+    },
+    {
+      "id": "vertoz",
+      "name": "Vertoz",
+      "aliases": ["Vertoz"],
+      "active": true,
+      "priority": 50
+    },
+    {
+      "id": "adhese",
+      "name": "Adhese",
+      "aliases": ["Adhese"],
+      "active": true,
+      "priority": 51
+    },
+    {
+      "id": "avocet",
+      "name": "Avocet",
+      "aliases": ["Avocet"],
+      "active": true,
+      "priority": 52
+    },
+    {
+      "id": "epsilon",
+      "name": "Epsilon",
+      "aliases": ["Epsilon Digital"],
+      "active": true,
+      "priority": 53
+    },
+    {
+      "id": "freewheel",
+      "name": "FreeWheel",
+      "aliases": ["FreeWheel"],
+      "active": true,
+      "priority": 54
+    },
+    {
+      "id": "flashtalking",
+      "name": "Flashtalking",
+      "aliases": ["Flashtalking"],
+      "active": true,
+      "priority": 55
+    },
+    {
+      "id": "iion_adexchange",
+      "name": "IION Digital",
+      "aliases": ["IION AdExchange"],
+      "active": true,
+      "priority": 56
+    },
+    {
+      "id": "admire",
+      "name": "Admire",
+      "aliases": ["Admire"],
+      "active": true,
+      "priority": 57
+    },
+    {
+      "id": "zemanta",
+      "name": "Zemanta",
+      "aliases": ["Outbrain Zemanta"],
+      "active": true,
+      "priority": 58
+    },
+    {
+      "id": "gemius",
+      "name": "Gemius",
+      "aliases": ["Gemius"],
+      "active": true,
+      "priority": 59
+    },
+    {
+      "id": "dcm",
+      "name": "Campaign Manager 360",
+      "aliases": ["DCM", "DoubleClick Campaign Manager", "CM360", "fast_company_dcm"],
+      "active": true,
+      "priority": 60
+    },
+    {
+      "id": "brightcom",
+      "name": "Brightcom",
+      "aliases": ["Brightcom"],
+      "active": true,
+      "priority": 61
+    },
+    {
+      "id": "proxistore",
+      "name": "Proxistore",
+      "aliases": ["Proxistore"],
+      "active": true,
+      "priority": 62
+    },
+    {
+      "id": "mozoo",
+      "name": "Mozoo",
+      "aliases": ["Mozoo"],
+      "active": true,
+      "priority": 63
+    },
+    {
+      "id": "adot",
+      "name": "Adot",
+      "aliases": ["Adot"],
+      "active": true,
+      "priority": 64
+    },
+    {
+      "id": "ogury",
+      "name": "Ogury",
+      "aliases": ["Ogury"],
+      "active": true,
+      "priority": 65
+    },
+    {
+      "id": "publisher_direct",
+      "name": "Publisher Direct",
+      "aliases": ["Direct Publisher"],
+      "active": true,
+      "priority": 66
+    },
+    {
+      "id": "triplelift",
+      "name": "TripleLift",
+      "aliases": ["TripleLift"],
+      "active": true,
+      "priority": 67
+    },
+    {
+      "id": "hawk",
+      "name": "Hawk",
+      "aliases": ["Hawk"],
+      "active": true,
+      "priority": 68
+    },
+    {
+      "id": "adxperience_enovate",
+      "name": "AdXperience",
+      "aliases": ["Enovate", "AdXperience"],
+      "active": true,
+      "priority": 69
+    },
+    {
+      "id": "demandbase",
+      "name": "Demandbase",
+      "aliases": ["Demandbase One"],
+      "active": true,
+      "priority": 70
+    },
+    {
+      "id": "loopme",
+      "name": "LoopMe",
+      "aliases": ["LoopMe"],
+      "active": true,
+      "priority": 71
+    },
+    {
+      "id": "biggie_global",
+      "name": "Biggie Global",
+      "aliases": ["Biggie"],
+      "active": true,
+      "priority": 72
+    },
+    {
+      "id": "adyoulike",
+      "name": "Adyoulike",
+      "aliases": ["Adyoulike"],
+      "active": true,
+      "priority": 73
+    },
+    {
+      "id": "bouncex",
+      "name": "BounceX",
+      "aliases": ["Wunderkind"],
+      "active": true,
+      "priority": 74
+    },
+    {
+      "id": "c_growth_cofidis",
+      "name": "C-Growth",
+      "aliases": ["C-Growth Cofidis"],
+      "active": true,
+      "priority": 75
+    },
+    {
+      "id": "veepee_dsp_cm_cofidis",
+      "name": "Veepee DSP",
+      "aliases": ["Veepee DSP CM Cofidis"],
+      "active": true,
+      "priority": 76
+    },
+    {
+      "id": "adlook_cofidis",
+      "name": "AdLook",
+      "aliases": ["AdLook Cofidis"],
+      "active": true,
+      "priority": 77
+    },
+    {
+      "id": "adventori_sncf",
+      "name": "Adventori",
+      "aliases": ["Adventori SNCF"],
+      "active": true,
+      "priority": 78
+    },
+    {
+      "id": "onsite_tracking_numberly_ubi",
+      "name": "Numberly",
+      "aliases": ["Numberly", "UBI Onsite Tracking"],
+      "active": true,
+      "priority": 79
+    },
+    {
+      "id": "onsite_tracking_rablab_viaction",
+      "name": "Rablab",
+      "aliases": ["Rablab", "Viaction Onsite Tracking"],
+      "active": true,
+      "priority": 80
+    },
+    {
+      "id": "onsite_tracking_rablab",
+      "name": "Rablab",
+      "aliases": ["Rablab Onsite Tracking"],
+      "active": true,
+      "priority": 81
+    },
+    {
+      "id": "onsite_tracking_bmind",
+      "name": "Bmind",
+      "aliases": ["Bmind Onsite Tracking"],
+      "active": true,
+      "priority": 82
+    },
+    {
+      "id": "onsite_tracking_caesars",
+      "name": "Caesars",
+      "aliases": ["Caesars Onsite Tracking"],
+      "active": true,
+      "priority": 83
+    },
+    {
+      "id": "onsite_tracking_jakala",
+      "name": "Jakala",
+      "aliases": ["Jakala Onsite Tracking"],
+      "active": true,
+      "priority": 84
+    },
+    {
+      "id": "onsite_tracking_sap",
+      "name": "SAP",
+      "aliases": ["SAP Onsite Tracking"],
+      "active": true,
+      "priority": 85
+    }
+  ]
+}
