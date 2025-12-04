@@ -145,7 +145,7 @@ app.post('/api/chat',
 
       // Process with AI
       const aiStartTime = Date.now();
-      const response = await aiAgent.processMessage(userId, message, conversationId);
+      const response = await aiAgent.processMessage(message, userId, conversationId);
       const aiProcessingTime = Date.now() - aiStartTime;
 
       // Validate extracted platform if present

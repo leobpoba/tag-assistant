@@ -121,36 +121,17 @@ class InMemoryStorage {
     this.requestLog.set(requestId, { startTime, userId, metadata });
   }
 
-  async logAction(requestIdOrObject, ticketId, userId, action, metadata = {}) {
-    // Support both old object format and new parameter format
-    let requestId, finalTicketId, finalUserId, finalAction, finalMetadata;
-    
-    if (typeof requestIdOrObject === 'object' && requestIdOrObject !== null) {
-      // Old object format: logAction({ requestId, userId, action, data })
-      requestId = requestIdOrObject.requestId;
-      finalTicketId = requestIdOrObject.ticketId || null;
-      finalUserId = requestIdOrObject.userId;
-      finalAction = requestIdOrObject.action;
-      finalMetadata = requestIdOrObject.data || requestIdOrObject.metadata || {};
-    } else {
-      // New parameter format: logAction(requestId, ticketId, userId, action, metadata)
-      requestId = requestIdOrObject;
-      finalTicketId = ticketId;
-      finalUserId = userId;
-      finalAction = action;
-      finalMetadata = metadata || {};
-    }
-    
+  async logAction(requestId, ticketId, userId, action, metadata = {}) {
     const entry = {
       id: `history_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       requestId,
-      ticketId: finalTicketId,
-      userId: finalUserId,
-      action: finalAction,
-      account: finalMetadata.account || null,
-      platform: finalMetadata.platform || null,
-      priority: finalMetadata.priority || null,
-      responseTime: finalMetadata.responseTime || null,
+      ticketId: ticketId || null,
+      userId,
+      action,
+      account: metadata.account || null,
+      platform: metadata.platform || null,
+      priority: metadata.priority || null,
+      responseTime: metadata.responseTime || null,
       timestamp: new Date().toISOString()
     };
 

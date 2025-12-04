@@ -136,12 +136,13 @@ app.post('/api/chat',
 
     try {
       // Log chat start
-      await historyService.logAction({
-        requestId: req.requestId,
+      await historyService.logAction(
+        req.requestId,
+        null, // no ticket yet
         userId,
-        action: 'chat_message',
-        data: { message }
-      });
+        'chat_message',
+        { message }
+      );
 
       // Process with AI
       const aiStartTime = Date.now();
@@ -254,27 +255,19 @@ app.post('/api/tickets/create',
       const ticket = await storageService.createTicket(ticketData);
       const notionTime = Date.now() - notionStartTime;
 
-      // Log to history database
-      await historyService.createHistoryEntry({
-        requestId: req.requestId,
-        ticketId: ticket.id,
-        userId,
-        data: ticketData,
-        responseTime: Date.now() - req.requestStartTime,
-        notionTime
-      });
-
       // Log success
-      await historyService.logAction({
-        requestId: req.requestId,
+      await historyService.logAction(
+        req.requestId,
+        ticket.id,
         userId,
-        action: 'ticket_created',
-        data: {
-          ticketId: ticket.id,
-          ticketUrl: ticket.url,
-          processingTime: notionTime
+        'ticket_created',
+        {
+          account: ticketData.account,
+          platform: ticketData.platform,
+          priority: ticketData.priority,
+          responseTime: Date.now() - req.requestStartTime
         }
-      });
+      );
 
       res.json({
         success: true,
