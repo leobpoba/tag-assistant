@@ -672,12 +672,20 @@
                     hideThinking();
                     
                     if (data.success) {
+                        // Store ticket for viewing
+                        window.lastCreatedTicket = data.ticket;
+                        
                         addMessage('assistant', `
                             <div style="background: #d4edda; border-left: 4px solid #28a745; padding: 15px; border-radius: 8px;">
                                 <h4 style="color: #155724; margin-bottom: 10px;">✅ Ticket Created Successfully!</h4>
                                 <p style="color: #155724;"><strong>Ticket ID:</strong> ${data.ticket.id}</p>
                                 <p style="color: #155724; margin-top: 10px;">Your tag request has been created and saved!</p>
-                                <button class="action-btn primary" onclick="resetChat()" style="margin-top: 10px;">Create Another</button>
+                                <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                                    <button class="action-btn primary" onclick="viewTicket('${data.ticket.id}')" style="background: #007bff;">📄 View Ticket</button>
+                                    <button class="action-btn secondary" onclick="downloadTicket('${data.ticket.id}')">💾 Download</button>
+                                    <button class="action-btn secondary" onclick="copyTicketLink('${data.ticket.id}')">🔗 Copy Link</button>
+                                    <button class="action-btn secondary" onclick="resetChat()">➕ Create Another</button>
+                                </div>
                             </div>
                         `);
                         extractedData = {};
@@ -691,6 +699,78 @@
             } else if (action === 'reset') {
                 resetChat();
             }
+        }
+
+        async function viewTicket(ticketId) {
+            showThinking();
+            try {
+                const response = await fetch(`${API_BASE_URL}/tickets/${ticketId}?api_key=${API_KEY}`);
+                const data = await response.json();
+                hideThinking();
+                
+                if (data.success && data.ticket) {
+                    const ticket = data.ticket;
+                    const ticketHTML = `
+                        <div style="background: #f8f9fa; border: 2px solid #007bff; padding: 20px; border-radius: 8px; margin: 10px 0;">
+                            <h3 style="color: #007bff; margin-top: 0;">📋 Ticket Details</h3>
+                            <div style="display: grid; gap: 10px;">
+                                <div><strong>Ticket ID:</strong> ${ticket.id}</div>
+                                <div><strong>Client:</strong> ${ticket.account || 'N/A'}</div>
+                                <div><strong>Platform:</strong> ${ticket.platform || 'N/A'}</div>
+                                <div><strong>Tag Type:</strong> ${ticket.tagType || 'N/A'}</div>
+                                <div><strong>Priority:</strong> <span style="padding: 4px 8px; border-radius: 4px; background: ${ticket.priority === 'High' ? '#dc3545' : ticket.priority === 'Medium' ? '#ffc107' : '#28a745'}; color: white;">${ticket.priority || 'N/A'}</span></div>
+                                <div><strong>Status:</strong> ${ticket.status || 'pending'}</div>
+                                <div><strong>Created:</strong> ${new Date(ticket.createdAt).toLocaleString()}</div>
+                                ${ticket.url ? `<div><strong>URL:</strong> <a href="${ticket.url}" target="_blank">${ticket.url}</a></div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    addMessage('assistant', ticketHTML);
+                } else {
+                    addMessage('assistant', `❌ Could not retrieve ticket: ${data.error || 'Unknown error'}`);
+                }
+            } catch (error) {
+                hideThinking();
+                addMessage('assistant', `❌ Error fetching ticket: ${error.message}`);
+            }
+        }
+
+        async function downloadTicket(ticketId) {
+            showThinking();
+            try {
+                const response = await fetch(`${API_BASE_URL}/tickets/${ticketId}?api_key=${API_KEY}`);
+                const data = await response.json();
+                hideThinking();
+                
+                if (data.success && data.ticket) {
+                    // Create downloadable JSON file
+                    const blob = new Blob([JSON.stringify(data.ticket, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `ticket-${ticketId}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    addMessage('assistant', '✅ Ticket downloaded successfully!');
+                } else {
+                    addMessage('assistant', `❌ Could not download ticket: ${data.error || 'Unknown error'}`);
+                }
+            } catch (error) {
+                hideThinking();
+                addMessage('assistant', `❌ Error downloading ticket: ${error.message}`);
+            }
+        }
+
+        function copyTicketLink(ticketId) {
+            const link = `${API_BASE_URL}/tickets/${ticketId}?api_key=${API_KEY}`;
+            navigator.clipboard.writeText(link).then(() => {
+                addMessage('assistant', `✅ Ticket link copied to clipboard!\n\n${link}`);
+            }).catch(err => {
+                addMessage('assistant', `❌ Failed to copy link: ${err.message}\n\nLink: ${link}`);
+            });
         }
 
         function quickMessage(text) {
