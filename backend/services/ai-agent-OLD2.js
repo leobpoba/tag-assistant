@@ -15,9 +15,8 @@ class AIAgent {
       this.model = null;
     } else {
       this.genAI = new GoogleGenerativeAI(this.apiKey);
-      // Use Gemini 1.5 Flash (latest version, free tier)
-      this.model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
-      console.log('✓ Gemini AI initialized with model: gemini-1.5-flash-latest');
+      // Use the updated Gemini 1.5 Flash model (free tier)
+      this.model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     }
     
     // Conversation memory (simple in-memory store)
