@@ -560,9 +560,15 @@
                         console.log('✅ Extracted from final summary:', extractedData);
                     }
                     
-                    // Also merge backend extracted data
+                    // Merge backend extracted data, but don't overwrite with null values
                     if (data.extractedData) {
-                        extractedData = { ...extractedData, ...data.extractedData };
+                        // Only merge non-null values from backend
+                        for (const key in data.extractedData) {
+                            if (data.extractedData[key] !== null) {
+                                extractedData[key] = data.extractedData[key];
+                            }
+                        }
+                        console.log('Merged backend data (non-null only)');
                     }
                     
                     console.log('=== FINAL extractedData ===', extractedData);
