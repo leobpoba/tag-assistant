@@ -32,9 +32,6 @@ app.use(cors({
   credentials: true
 }));
 
-// Serve static files (for frontend)
-app.use(express.static(__dirname));
-
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -584,12 +581,6 @@ app.use((error, req, res, next) => {
     error: 'Internal server error',
     requestId: req.requestId
   });
-});
-
-// Serve index.html at root
-const path = require('path');
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // 404 handler
