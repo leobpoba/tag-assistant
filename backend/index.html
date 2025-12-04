@@ -452,60 +452,81 @@
                         conversationId = data.conversationId;
                     }
                     
-                    // Smart extraction: Parse AI message for confirmations
+                    // Smart extraction: Parse AI message for confirmations using EXACT phrase matching
                     const aiMessage = data.message.toLowerCase();
                     const originalMessage = data.message;
                     
-                    // Detect field confirmations from AI's questions
-                    // Pattern: "So this is for [Client], correct?"
-                    if (aiMessage.includes('so this is for') || aiMessage.includes('this is for')) {
-                        const match = originalMessage.match(/(?:so )?this is for ([^,?.!]+)/i);
-                        if (match && match[1] && !extractedData.account) {
+                    // Pattern 1: "So this is for [Client], correct?"
+                    if (aiMessage.includes('so this is for')) {
+                        const match = originalMessage.match(/so this is for ([^,]+),/i);
+                        if (match && match[1]) {
                             extractedData.account = match[1].trim();
+                            console.log('Extracted client:', extractedData.account);
                         }
                     }
                     
-                    // Pattern: "you need this for [Platform]"
-                    if (aiMessage.includes('you need this for') || aiMessage.includes('need this for')) {
-                        const match = originalMessage.match(/need this for ([^,?.!]+)/i);
-                        if (match && match[1] && !extractedData.platform) {
+                    // Pattern 2: "You need this for [Platform], is that right?"
+                    if (aiMessage.includes('you need this for')) {
+                        const match = originalMessage.match(/you need this for ([^,]+),/i);
+                        if (match && match[1]) {
                             extractedData.platform = match[1].trim();
+                            console.log('Extracted platform:', extractedData.platform);
                         }
                     }
                     
-                    // Pattern: "A [Tag Type]" or "[Tag Type] - is that correct"
-                    if ((aiMessage.includes('tracker') || aiMessage.includes('video wrapper')) && 
-                        (aiMessage.includes('is that correct') || aiMessage.includes('correct?'))) {
-                        if (aiMessage.includes('tracker') && !extractedData.tagType) {
-                            extractedData.tagType = 'Tracker';
-                        } else if (aiMessage.includes('video wrapper') && !extractedData.tagType) {
-                            extractedData.tagType = 'Video Wrapper';
+                    // Pattern 3: "Got it, a [TagType] - is that correct?"
+                    if (aiMessage.includes('got it, a')) {
+                        const match = originalMessage.match(/got it, a ([^-]+) -/i);
+                        if (match && match[1]) {
+                            extractedData.tagType = match[1].trim();
+                            console.log('Extracted tag type:', extractedData.tagType);
                         }
                     }
                     
-                    // Pattern: "so [Priority] priority"
-                    if (aiMessage.includes('priority')) {
-                        if (aiMessage.includes('high priority') && !extractedData.priority) {
-                            extractedData.priority = 'High';
-                        } else if (aiMessage.includes('low priority') && !extractedData.priority) {
-                            extractedData.priority = 'Low';
-                        } else if (aiMessage.includes('medium priority') && !extractedData.priority) {
-                            extractedData.priority = 'Medium';
+                    // Pattern 4a: "So [Priority] priority, is that right?"
+                    if (aiMessage.includes('priority, is that right')) {
+                        const match = originalMessage.match(/so (high|medium|low) priority/i);
+                        if (match && match[1]) {
+                            extractedData.priority = match[1].charAt(0).toUpperCase() + match[1].slice(1);
+                            console.log('Extracted priority:', extractedData.priority);
                         }
+                    }
+                    
+                    // Pattern 4b: "I see this is urgent, so High priority, correct?"
+                    if (aiMessage.includes('so high priority, correct')) {
+                        extractedData.priority = 'High';
+                        console.log('Extracted priority: High (urgent)');
+                    }
+                    
+                    // Pattern 4c: "So Low priority, is that right?"
+                    if (aiMessage.includes('so low priority, is that right')) {
+                        extractedData.priority = 'Low';
+                        console.log('Extracted priority: Low');
                     }
                     
                     // Final confirmation - extract all from summary
-                    if (aiMessage.includes('let me confirm') || aiMessage.includes('✓')) {
-                        // Extract from final summary format
-                        const clientMatch = originalMessage.match(/client:\s*([^\n✓]+)/i);
-                        const platformMatch = originalMessage.match(/platform:\s*([^\n✓]+)/i);
-                        const tagTypeMatch = originalMessage.match(/tag type:\s*([^\n✓]+)/i);
-                        const priorityMatch = originalMessage.match(/priority:\s*([^\n✓]+)/i);
-                        
-                        if (clientMatch) extractedData.account = clientMatch[1].trim();
-                        if (platformMatch) extractedData.platform = platformMatch[1].trim();
-                        if (tagTypeMatch) extractedData.tagType = tagTypeMatch[1].trim();
-                        if (priorityMatch) extractedData.priority = priorityMatch[1].trim();
+                    if (aiMessage.includes('let me confirm everything')) {
+                        // Extract from final summary format with ✓ marks
+                        const lines = originalMessage.split('\n');
+                        for (const line of lines) {
+                            if (line.includes('Client:')) {
+                                const match = line.match(/Client:\s*([^✓]+)/i);
+                                if (match) extractedData.account = match[1].trim();
+                            }
+                            if (line.includes('Platform:')) {
+                                const match = line.match(/Platform:\s*([^✓]+)/i);
+                                if (match) extractedData.platform = match[1].trim();
+                            }
+                            if (line.includes('Tag Type:')) {
+                                const match = line.match(/Tag Type:\s*([^✓]+)/i);
+                                if (match) extractedData.tagType = match[1].trim();
+                            }
+                            if (line.includes('Priority:')) {
+                                const match = line.match(/Priority:\s*([^✓]+)/i);
+                                if (match) extractedData.priority = match[1].trim();
+                            }
+                        }
+                        console.log('Extracted from final summary:', extractedData);
                     }
                     
                     // Also merge backend extracted data
@@ -513,13 +534,13 @@
                         extractedData = { ...extractedData, ...data.extractedData };
                     }
                     
+                    console.log('Current extractedData:', extractedData);
+                    
                     // Show AI response
                     let responseHTML = `<p>${data.message}</p>`;
                     
-                    // Show data card if we have extracted data
-                    if (Object.keys(extractedData).length > 0) {
-                        responseHTML += createDataCard(extractedData);
-                    }
+                    // Show data card if we have any extracted data
+                    responseHTML += createDataCard(extractedData);
                     
                     // Show action buttons
                     if (data.actions && data.actions.length > 0) {
@@ -559,10 +580,11 @@
             for (const [key, label] of Object.entries(fields)) {
                 const value = data[key];
                 const status = value ? 'status-complete' : 'status-missing';
+                const displayValue = value || 'Missing';
                 html += `
                     <div class="data-row">
                         <span class="data-label">${label}:</span>
-                        <span class="data-value ${status}">${value || 'Missing'}</span>
+                        <span class="data-value ${status}">${displayValue}</span>
                     </div>
                 `;
             }
