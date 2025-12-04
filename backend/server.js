@@ -68,7 +68,14 @@ const authenticateAPI = (req, res, next) => {
     return next();
   }
   
-  const apiKey = req.headers['x-api-key'];
+  // Check header first (for POST/PUT requests)
+  let apiKey = req.headers['x-api-key'];
+  
+  // For GET requests, also allow API key in query parameter
+  if (!apiKey && req.method === 'GET') {
+    apiKey = req.query.api_key;
+  }
+  
   if (!apiKey || apiKey !== process.env.API_SECRET_KEY) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
