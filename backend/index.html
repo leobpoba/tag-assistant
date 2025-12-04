@@ -452,123 +452,59 @@
                         conversationId = data.conversationId;
                     }
                     
-                    // DETAILED DEBUG LOGGING
-                    console.log('=== EXTRACTION DEBUG ===');
-                    console.log('AI Message:', data.message);
-                    console.log('AI Message (lowercase):', data.message.toLowerCase());
-                    
-                    // Smart extraction: Parse AI message for confirmations using EXACT phrase matching
+                    // Extract from AI's confirmation message
                     const aiMessage = data.message.toLowerCase();
                     const originalMessage = data.message;
                     
-                    // Pattern 1: "So this is for [Client], correct?"
-                    console.log('Checking pattern 1: so this is for');
-                    if (aiMessage.includes('so this is for')) {
-                        console.log('✓ Pattern 1 matched!');
-                        const match = originalMessage.match(/so this is for ([^,]+),/i);
-                        console.log('Regex result:', match);
-                        if (match && match[1]) {
-                            extractedData.account = match[1].trim();
-                            console.log('✅ Extracted client:', extractedData.account);
-                        } else {
-                            console.log('❌ Regex did not capture');
-                        }
-                    }
+                    console.log('=== EXTRACTION ===');
+                    console.log('AI Message:', originalMessage);
                     
-                    // Pattern 2: "You need this for [Platform], is that right?"
-                    console.log('Checking pattern 2: you need this for');
-                    if (aiMessage.includes('you need this for')) {
-                        console.log('✓ Pattern 2 matched!');
-                        const match = originalMessage.match(/you need this for ([^,]+),/i);
-                        console.log('Regex result:', match);
-                        if (match && match[1]) {
-                            extractedData.platform = match[1].trim();
-                            console.log('✅ Extracted platform:', extractedData.platform);
-                        } else {
-                            console.log('❌ Regex did not capture');
-                        }
-                    }
-                    
-                    // Pattern 3: "Got it, a [TagType] - is that correct?"
-                    console.log('Checking pattern 3: got it, a');
-                    if (aiMessage.includes('got it, a')) {
-                        console.log('✓ Pattern 3 matched!');
-                        const match = originalMessage.match(/got it, a ([^-]+) -/i);
-                        console.log('Regex result:', match);
-                        if (match && match[1]) {
-                            extractedData.tagType = match[1].trim();
-                            console.log('✅ Extracted tag type:', extractedData.tagType);
-                        } else {
-                            console.log('❌ Regex did not capture');
-                        }
-                    }
-                    
-                    // Pattern 4a: "So [Priority] priority, is that right?"
-                    console.log('Checking pattern 4a: priority, is that right');
-                    if (aiMessage.includes('priority, is that right')) {
-                        console.log('✓ Pattern 4a matched!');
-                        const match = originalMessage.match(/so (high|medium|low) priority/i);
-                        console.log('Regex result:', match);
-                        if (match && match[1]) {
-                            extractedData.priority = match[1].charAt(0).toUpperCase() + match[1].slice(1);
-                            console.log('✅ Extracted priority:', extractedData.priority);
-                        } else {
-                            console.log('❌ Regex did not capture');
-                        }
-                    }
-                    
-                    // Pattern 4b: "I see this is urgent, so High priority, correct?"
-                    console.log('Checking pattern 4b: so high priority, correct');
-                    if (aiMessage.includes('so high priority, correct')) {
-                        console.log('✓ Pattern 4b matched!');
-                        extractedData.priority = 'High';
-                        console.log('✅ Extracted priority: High (urgent)');
-                    }
-                    
-                    // Pattern 4c: "So Low priority, is that right?"
-                    console.log('Checking pattern 4c: so low priority, is that right');
-                    if (aiMessage.includes('so low priority, is that right')) {
-                        console.log('✓ Pattern 4c matched!');
-                        extractedData.priority = 'Low';
-                        console.log('✅ Extracted priority: Low');
-                    }
-                    
-                    // Final confirmation - extract all from summary
-                    console.log('Checking final confirmation: let me confirm everything');
-                    if (aiMessage.includes('let me confirm everything')) {
-                        console.log('✓ Final confirmation detected!');
-                        // Extract from final summary format with ✓ marks
+                    // Look for the confirmation summary with ✓ marks
+                    if (aiMessage.includes("i've extracted") || aiMessage.includes('✓')) {
+                        console.log('✓ Confirmation summary detected - extracting fields');
+                        
+                        // Extract from lines
                         const lines = originalMessage.split('\n');
                         for (const line of lines) {
                             if (line.includes('Client:')) {
                                 const match = line.match(/Client:\s*([^✓]+)/i);
-                                if (match) extractedData.account = match[1].trim();
+                                if (match) {
+                                    extractedData.account = match[1].trim();
+                                    console.log('Extracted client:', extractedData.account);
+                                }
                             }
                             if (line.includes('Platform:')) {
                                 const match = line.match(/Platform:\s*([^✓]+)/i);
-                                if (match) extractedData.platform = match[1].trim();
+                                if (match) {
+                                    extractedData.platform = match[1].trim();
+                                    console.log('Extracted platform:', extractedData.platform);
+                                }
                             }
                             if (line.includes('Tag Type:')) {
                                 const match = line.match(/Tag Type:\s*([^✓]+)/i);
-                                if (match) extractedData.tagType = match[1].trim();
+                                if (match) {
+                                    extractedData.tagType = match[1].trim();
+                                    console.log('Extracted tag type:', extractedData.tagType);
+                                }
                             }
                             if (line.includes('Priority:')) {
                                 const match = line.match(/Priority:\s*([^✓]+)/i);
-                                if (match) extractedData.priority = match[1].trim();
+                                if (match) {
+                                    extractedData.priority = match[1].trim();
+                                    console.log('Extracted priority:', extractedData.priority);
+                                }
                             }
                         }
-                        console.log('✅ Extracted from final summary:', extractedData);
                     }
                     
-                    // Merge backend extracted data, but don't overwrite with null values
+                    // Merge backend extracted data (non-null values only)
                     if (data.extractedData) {
-                        // Only merge non-null values from backend
                         for (const key in data.extractedData) {
                             if (data.extractedData[key] !== null) {
                                 extractedData[key] = data.extractedData[key];
                             }
                         }
-                        console.log('Merged backend data (non-null only)');
+                        console.log('Merged backend data');
                     }
                     
                     console.log('=== FINAL extractedData ===', extractedData);
