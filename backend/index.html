@@ -742,6 +742,25 @@
                     console.log('=== FINAL extractedData ===', extractedData);
                     console.log('========================');
                     
+                    // Check if AI is ready to create ticket (user confirmed)
+                    const isReadyToCreate = aiMessage.includes('perfect') || 
+                                           aiMessage.includes('let me create') ||
+                                           aiMessage.includes("i'll create") ||
+                                           aiMessage.includes('creating the ticket');
+                    
+                    // Check if all required fields are present
+                    const allFieldsPresent = extractedData.account && 
+                                           extractedData.platform && 
+                                           extractedData.tagType && 
+                                           extractedData.priority;
+                    
+                    // Auto-create ticket if confirmed and all fields present
+                    if (isReadyToCreate && allFieldsPresent) {
+                        console.log('🎯 Auto-creating ticket...');
+                        await autoCreateTicket();
+                        return; // Exit early, ticket creation will show its own message
+                    }
+                    
                     let responseHTML = `<p>${data.message}</p>`;
                     responseHTML += createDataCard(extractedData);
                     
@@ -812,6 +831,59 @@
             html += suggestions.map(s => `<span class="quick-action" onclick="quickMessage('${s}')">${s}</span>`).join('');
             html += '</div></div>';
             return html;
+        }
+
+        async function autoCreateTicket() {
+            console.log('🚀 Auto-creating ticket with data:', extractedData);
+            showThinking();
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/tickets/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': API_KEY
+                    },
+                    body: JSON.stringify({
+                        data: extractedData,
+                        userId: userId
+                    })
+                });
+                
+                const data = await response.json();
+                hideThinking();
+                
+                if (data.success) {
+                    window.lastCreatedTicket = data.ticket;
+                    
+                    addMessage('assistant', `
+                        <div style="background: var(--card-bg); border-left: 4px solid var(--scope3-lime); padding: 20px; border-radius: 12px; border: 1px solid var(--border-dark);">
+                            <h4 style="color: var(--scope3-lime); margin-bottom: 12px; font-size: 18px;">✅ Ticket Created Successfully!</h4>
+                            <p style="color: var(--text-white); margin-bottom: 8px;"><strong>Ticket ID:</strong> ${data.ticket.id}</p>
+                            <p style="color: var(--text-light); margin-bottom: 16px;">Your tag request has been created and saved!</p>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button class="action-btn primary" onclick="viewTicket('${data.ticket.id}')">📄 View Ticket</button>
+                                <button class="action-btn secondary" onclick="downloadTicket('${data.ticket.id}')">💾 Download</button>
+                                <button class="action-btn secondary" onclick="copyTicketLink('${data.ticket.id}')">🔗 Copy Link</button>
+                                <button class="action-btn secondary" onclick="resetChat()">➕ Create Another</button>
+                            </div>
+                        </div>
+                    `);
+                    
+                    // Reset extracted data for next ticket
+                    extractedData = {};
+                } else {
+                    addMessage('assistant', `❌ Failed to create ticket: ${data.error}`);
+                }
+            } catch (error) {
+                hideThinking();
+                console.error('Error creating ticket:', error);
+                addMessage('assistant', `❌ Error creating ticket: ${error.message}`);
+            }
+            
+            input.disabled = false;
+            sendButton.disabled = false;
+            input.focus();
         }
 
         async function handleAction(action) {
