@@ -14,24 +14,12 @@ const PORT = process.env.PORT || 3000;
 const AIAgent = require('./services/ai-agent');
 const PlatformMatcher = require('./services/platform-matcher');
 
-// Storage: Use file storage by default, Notion if configured
-const USE_NOTION = process.env.NOTION_TOKEN && process.env.NOTION_TICKETS_DB_ID;
-
-let storageService;
-let historyService;
-
-if (USE_NOTION) {
-  const NotionService = require('./services/notion');
-  const HistoryService = require('./services/history');
-  storageService = new NotionService();
-  historyService = new HistoryService();
-  console.log('📝 Using Notion for storage');
-} else {
-  const FileStorageService = require('./services/file-storage');
-  storageService = new FileStorageService();
-  historyService = storageService; // File storage handles both tickets and history
-  console.log('💾 Using file-based storage (no Notion configured)');
-}
+// Storage: Use in-memory storage (Vercel-compatible)
+// Data resets when function restarts, but perfect for testing!
+const InMemoryStorage = require('./services/inmemory-storage');
+const storageService = new InMemoryStorage();
+const historyService = storageService; // In-memory storage handles both
+console.log('💾 Using in-memory storage (Vercel-compatible)');
 
 // Initialize services
 const aiAgent = new AIAgent();
@@ -53,18 +41,20 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Request logging middleware
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   req.requestStartTime = Date.now();
   req.requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   
-  // Log request
-  historyService.logRequest({
-    requestId: req.requestId,
-    method: req.method,
-    path: req.path,
-    userId: req.body.userId || req.query.userId || 'anonymous',
-    ip: req.ip
-  });
+  // Log request (async but don't wait)
+  historyService.logRequest(
+    req.requestId,
+    req.body.userId || req.query.userId || 'anonymous',
+    {
+      method: req.method,
+      path: req.path,
+      ip: req.ip
+    }
+  ).catch(err => console.error('Logging error:', err));
   
   next();
 });
@@ -87,17 +77,32 @@ const authenticateAPI = (req, res, next) => {
 // ============================================
 
 // Health check
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV,
-    storage: USE_NOTION ? 'notion' : 'file',
-    services: {
-      ai: aiAgent.isReady(),
-      storage: storageService.isReady(),
-      platforms: platformMatcher.getPlatformCount()
-    }
+app.get('/api/health', async (req, res) => {
+  try {
+    const stats = await storageService.getStorageStats();
+    
+    res.json({
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || 'production',
+      storage: 'in-memory',
+      services: {
+        ai: !!process.env.GEMINI_API_KEY,
+        storage: true,
+        platforms: platformMatcher.getPlatformCount()
+      },
+      stats: {
+        tickets: stats.ticketCount,
+        history: stats.historyCount
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message
+    });
+  }
+});
   });
 });
 
@@ -588,27 +593,35 @@ app.use((req, res) => {
   });
 });
 
-// Start server
+// Start server (Vercel serverless compatible)
 async function start() {
   try {
-    // Initialize services
+    // Initialize platform matcher only
     await platformMatcher.initialize();
-    await storageService.initialize();
-    await historyService.initialize();
-    await aiAgent.initialize();
+    
+    // In-memory storage doesn't need initialization
+    // It's ready immediately!
 
-    app.listen(PORT, () => {
-      console.log(`🚀 AI Tag Request Assistant API running on port ${PORT}`);
-      console.log(`📊 Environment: ${process.env.NODE_ENV}`);
-      console.log(`🤖 AI Provider: ${process.env.GEMINI_API_KEY ? 'Gemini' : process.env.ANTHROPIC_API_KEY ? 'Claude' : 'None'}`);
-      console.log(`💾 Storage: ${USE_NOTION ? 'Notion' : 'File-based'}`);
-      console.log(`🎯 Platforms: ${platformMatcher.getPlatformCount()} loaded`);
-      console.log(`\n✨ Ready to receive requests!`);
-    });
+    // Only start HTTP server if not in Vercel
+    if (!process.env.VERCEL) {
+      app.listen(PORT, () => {
+        console.log(`🚀 AI Tag Request Assistant API running on port ${PORT}`);
+        console.log(`📊 Environment: ${process.env.NODE_ENV || 'production'}`);
+        console.log(`🤖 AI Provider: ${process.env.GEMINI_API_KEY ? 'Gemini' : 'None'}`);
+        console.log(`💾 Storage: In-Memory (resets on restart)`);
+        console.log(`🎯 Platforms: ${platformMatcher.getPlatformCount()} loaded`);
+        console.log(`\n✨ Ready to receive requests!`);
+      });
+    } else {
+      console.log(`✓ Vercel serverless function ready`);
+      console.log(`✓ ${platformMatcher.getPlatformCount()} platforms loaded`);
+    }
 
   } catch (error) {
     console.error('Failed to start server:', error);
-    process.exit(1);
+    if (!process.env.VERCEL) {
+      process.exit(1);
+    }
   }
 }
 
