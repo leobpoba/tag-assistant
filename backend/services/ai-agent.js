@@ -88,65 +88,84 @@ class AIAgent {
 
 Your job is to CAREFULLY collect and CONFIRM each piece of information step-by-step.
 
-CRITICAL WORKFLOW - Follow this EXACT order:
-1. First, ask for or extract the CLIENT/ACCOUNT name
-2. CONFIRM the client explicitly ("Is this for [Client]?")
-3. Then ask for the PLATFORM
-4. CONFIRM the platform explicitly ("So this is for [Platform]?")
-5. Then ask for the TAG TYPE
-6. CONFIRM the tag type explicitly ("You need a [Type], correct?")
-7. Then ask for or infer the PRIORITY
-8. CONFIRM the priority explicitly ("Priority: [Level] - is this correct?")
-9. ONLY after ALL 4 fields are confirmed, offer to create the ticket
+CRITICAL: You must follow this EXACT workflow and NEVER skip steps:
+
+STEP 1 - Get Client:
+- Ask: "Which client or brand is this tag request for?"
+- Wait for user's answer
+- Then ask: "So this is for [Client], correct?"
+- Wait for confirmation
+
+STEP 2 - Get Platform (only after client confirmed):
+- Ask: "Which platform do you need this for? For example: Google DV360, The Trade Desk, Xandr, or Google Ad Manager?"
+- Wait for user's answer
+- Then ask: "Perfect! So this is for [Platform], is that right?"
+- Wait for confirmation
+
+STEP 3 - Get Tag Type (only after platform confirmed):
+- Ask: "What type of tag do you need? The options are: Tracker or Video Wrapper"
+- Wait for user's answer
+- Then ask: "Got it, a [Type] - is that correct?"
+- Wait for confirmation
+
+STEP 4 - Get Priority (only after tag type confirmed):
+- If user mentioned "urgent" or "ASAP" → Ask: "I see this is urgent, so High priority, correct?"
+- If user mentioned "when possible" → Ask: "So Low priority, is that right?"
+- Otherwise → Ask: "What priority should this be? Low, Medium, or High?"
+- Wait for user's answer
+
+STEP 5 - Final Confirmation (only after ALL 4 fields confirmed):
+Say: "Excellent! Let me confirm everything:
+- Client: [Name] ✓
+- Platform: [Platform] ✓
+- Tag Type: [Type] ✓
+- Priority: [Level] ✓
+
+Ready to create this ticket?"
+
+CRITICAL RULES:
+- Ask ONE question at a time
+- WAIT for user confirmation before moving to next step
+- If user says "no" or corrects you, accept the correction and re-confirm
+- DO NOT show the summary until ALL 4 fields are individually confirmed
+- DO NOT skip ahead - follow the exact order above
 
 Information to extract:
 - account/client: The brand/client name (e.g., Nike, SAP, Cofidis, SNCF Connect)
-- platform: The advertising platform (e.g., Google DV360, The Trade Desk, Xandr, Google Ad Manager)
-- tagType: ONLY these two options: "Tracker" or "Video Wrapper"
-- priority: ONLY these three options: "Low", "Medium", or "High"
+- platform: ONLY these platforms - Google DV360, The Trade Desk, Xandr, Google Ad Manager, Amazon, Criteo, Taboola, Outbrain
+- tagType: ONLY "Tracker" or "Video Wrapper" 
+- priority: ONLY "Low", "Medium", or "High"
 
-Important rules:
-- ASK ONE QUESTION AT A TIME - never ask about multiple fields in one message
-- ALWAYS confirm each field with the user before moving to the next one
-- If user says "yes", "correct", "that's right" → move to next field
-- If user corrects you → update that field and confirm again
-- NEVER create a ticket until ALL 4 fields are explicitly confirmed
-- If the user mentions "urgent", "ASAP", "high priority" → priority is "High"
-- If user says "when possible", "no rush" → priority is "Low"
-- Otherwise default to "Medium" priority
-
-Common platform aliases you should recognize:
+Platform aliases you should recognize:
 - Google DV360 = DV360, Display & Video 360
 - Google Ad Manager = GAM, DFP, DoubleClick
 - The Trade Desk = TTD
 - Xandr = AppNexus, Microsoft Advertising
 - Amazon = Amazon Ads, Amazon DSP
 
-Tag type options (ONLY THESE TWO):
-- "Tracker" - for tracking pixels and tags
-- "Video Wrapper" - for video ad wrappers
-
-Priority options (ONLY THESE THREE):
-- "Low" - when possible, no rush
-- "Medium" - normal priority (default)
-- "High" - urgent, ASAP
+IMPORTANT: 
+- NEVER mention Meta or Facebook as platform options
+- When suggesting platforms, say: "Google DV360, The Trade Desk, Xandr, or Google Ad Manager"
+- For tag types, say: "Tracker or Video Wrapper"
+- For priority, say: "Low, Medium, or High"
 
 Response style:
-- Be conversational and friendly
-- Confirm each field EXPLICITLY before moving on
-- After confirming all 4 fields, show a summary and ask "Ready to create the ticket?"
-- Don't use XML tags or code in your response
-- Just talk naturally, but ALWAYS confirm each field!
+- Be friendly and conversational
+- But ALWAYS follow the exact step-by-step workflow
+- Don't rush - one field at a time
+- Use the exact confirmation format in Step 5 so the system can extract the data
 
-Example conversation flow:
-User: "urgent Nike tag for DV360"
+Example (FOLLOW THIS EXACTLY):
+User: "urgent Nike tracker for DV360"
 You: "Got it! So this is for Nike, correct?"
 User: "yes"
 You: "Perfect! And you need this for Google DV360, is that right?"
-User: "yes"
+User: "yes"  
 You: "Great! What type of tag do you need? Tracker or Video Wrapper?"
 User: "tracker"
-You: "A Tracker for Google DV360 - perfect! And I see you mentioned 'urgent', so this is High priority, correct?"
+You: "Got it, a Tracker - is that correct?"
+User: "yes"
+You: "And I see you mentioned 'urgent', so High priority, correct?"
 User: "yes"
 You: "Excellent! Let me confirm everything:
 - Client: Nike ✓
@@ -156,9 +175,7 @@ You: "Excellent! Let me confirm everything:
 
 Ready to create this ticket?"
 
-IMPORTANT: When suggesting platforms, DO NOT mention Meta/Facebook. Use: Google DV360, The Trade Desk, Xandr, Google Ad Manager, Amazon.
-
-REMEMBER: Confirm EACH field individually before moving to the next!`;
+REMEMBER: Confirm EACH field individually, one at a time, in order!`;
   }
 
   /**
@@ -185,6 +202,11 @@ REMEMBER: Confirm EACH field individually before moving to the next!`;
   /**
    * Extract structured data from AI response
    */
+  /**
+   * Extract structured data from AI response
+   * IMPORTANT: Only extract fields that the AI has EXPLICITLY CONFIRMED
+   * Don't extract just because keywords are mentioned - look for confirmation language
+   */
   extractData(aiResponse, userMessage) {
     const data = {
       account: null,
@@ -193,70 +215,92 @@ REMEMBER: Confirm EACH field individually before moving to the next!`;
       priority: null
     };
 
-    // Combine AI response and user message for extraction
-    const combinedText = `${userMessage} ${aiResponse}`.toLowerCase();
+    const aiText = aiResponse.toLowerCase();
+    const userText = userMessage.toLowerCase();
 
-    // Only extract if AI explicitly confirms a field
-    // Look for confirmation patterns like "So this is for [X]" or "Client: [X]"
-    
-    // Extract account/client - only if AI mentions it in a confirmation
-    const knownBrands = ['nike', 'sap', 'cofidis', 'sncf', 'sncf connect', 'l\'oréal', 'loreal', 'renault', 'carrefour', 'adidas', 'puma'];
-    for (const brand of knownBrands) {
-      if (combinedText.includes(brand)) {
-        data.account = brand.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-        break;
-      }
+    // Only extract if AI is explicitly confirming or summarizing
+    // Look for confirmation phrases
+    const hasConfirmation = aiText.includes('confirm') || 
+                           aiText.includes('let me confirm') ||
+                           aiText.includes('summarize') ||
+                           aiText.includes('summary') ||
+                           aiText.includes('✓') ||
+                           aiText.includes('ready to create');
+
+    // If no confirmation language, don't extract anything
+    // This prevents extracting fields while AI is still asking about them
+    if (!hasConfirmation) {
+      return data;
     }
 
-    // Try to extract capitalized words from user message as potential client names
-    if (!data.account) {
-      const words = userMessage.split(' ');
-      for (const word of words) {
-        if (word.length > 2 && word[0] === word[0].toUpperCase() && !['I', 'A', 'The', 'For', 'On', 'To'].includes(word)) {
-          data.account = word;
+    // Only extract fields that appear in confirmation context
+    const combinedText = `${userText} ${aiText}`;
+
+    // Extract account/client - only if AI confirms it
+    if (aiText.includes('client:') || aiText.includes('account:')) {
+      const knownBrands = ['nike', 'sap', 'cofidis', 'sncf', 'sncf connect', 'l\'oréal', 'loreal', 'renault', 'carrefour', 'adidas', 'puma'];
+      for (const brand of knownBrands) {
+        if (combinedText.includes(brand)) {
+          data.account = brand.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
           break;
+        }
+      }
+
+      // Try capitalized words if no known brand found
+      if (!data.account) {
+        const words = userMessage.split(' ');
+        for (const word of words) {
+          if (word.length > 2 && word[0] === word[0].toUpperCase() && !['I', 'A', 'The', 'For', 'On', 'To'].includes(word)) {
+            data.account = word;
+            break;
+          }
         }
       }
     }
 
-    // Extract platform - only if mentioned (NO META!)
-    const platforms = {
-      'Google DV360': ['dv360', 'google dv360', 'display & video', 'display and video'],
-      'Google Ad Manager': ['gam', 'google ad manager', 'dfp', 'doubleclick'],
-      'The Trade Desk': ['trade desk', 'ttd', 'the trade desk'],
-      'Xandr': ['xandr', 'appnexus', 'microsoft advertising'],
-      'Amazon': ['amazon', 'amazon dsp', 'amazon ads'],
-      'Criteo': ['criteo'],
-      'Taboola': ['taboola'],
-      'Outbrain': ['outbrain']
-    };
+    // Extract platform - only if AI confirms it
+    if (aiText.includes('platform:')) {
+      const platforms = {
+        'Google DV360': ['dv360', 'google dv360', 'display & video', 'display and video'],
+        'Google Ad Manager': ['gam', 'google ad manager', 'dfp', 'doubleclick'],
+        'The Trade Desk': ['trade desk', 'ttd', 'the trade desk'],
+        'Xandr': ['xandr', 'appnexus', 'microsoft advertising'],
+        'Amazon': ['amazon', 'amazon dsp', 'amazon ads'],
+        'Criteo': ['criteo'],
+        'Taboola': ['taboola'],
+        'Outbrain': ['outbrain']
+      };
 
-    for (const [platformName, aliases] of Object.entries(platforms)) {
-      for (const alias of aliases) {
-        if (combinedText.includes(alias)) {
-          data.platform = platformName;
-          break;
+      for (const [platformName, aliases] of Object.entries(platforms)) {
+        for (const alias of aliases) {
+          if (combinedText.includes(alias)) {
+            data.platform = platformName;
+            break;
+          }
         }
+        if (data.platform) break;
       }
-      if (data.platform) break;
     }
 
-    // Extract tag type - ONLY Tracker or Video Wrapper
-    if (combinedText.includes('tracker') || combinedText.includes('tracking')) {
-      data.tagType = 'Tracker';
-    } else if (combinedText.includes('video wrapper') || combinedText.includes('wrapper') || combinedText.includes('video tag')) {
-      data.tagType = 'Video Wrapper';
+    // Extract tag type - only if AI confirms it
+    if (aiText.includes('tag type:') || aiText.includes('type:')) {
+      if (combinedText.includes('tracker') || combinedText.includes('tracking')) {
+        data.tagType = 'Tracker';
+      } else if (combinedText.includes('video wrapper') || combinedText.includes('wrapper') || combinedText.includes('video tag')) {
+        data.tagType = 'Video Wrapper';
+      }
     }
 
-    // Extract priority - ONLY Low, Medium, High (capitalized)
-    if (combinedText.includes('high') || combinedText.includes('urgent') || combinedText.includes('asap')) {
-      data.priority = 'High';
-    } else if (combinedText.includes('low') || combinedText.includes('when possible') || combinedText.includes('no rush')) {
-      data.priority = 'Low';
-    } else if (combinedText.includes('medium') || combinedText.includes('normal')) {
-      data.priority = 'Medium';
+    // Extract priority - only if AI confirms it
+    if (aiText.includes('priority:')) {
+      if (combinedText.includes('high') || combinedText.includes('urgent') || combinedText.includes('asap')) {
+        data.priority = 'High';
+      } else if (combinedText.includes('low') || combinedText.includes('when possible') || combinedText.includes('no rush')) {
+        data.priority = 'Low';
+      } else if (combinedText.includes('medium') || combinedText.includes('normal')) {
+        data.priority = 'Medium';
+      }
     }
-    // Don't default - let AI ask for confirmation
 
     return data;
   }

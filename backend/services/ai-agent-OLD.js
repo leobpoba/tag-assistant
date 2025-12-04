@@ -94,16 +94,16 @@ CRITICAL WORKFLOW - Follow this EXACT order:
 3. Then ask for the PLATFORM
 4. CONFIRM the platform explicitly ("So this is for [Platform]?")
 5. Then ask for the TAG TYPE
-6. CONFIRM the tag type explicitly ("You need a [Type] tag, correct?")
+6. CONFIRM the tag type explicitly ("You need a [Type], correct?")
 7. Then ask for or infer the PRIORITY
 8. CONFIRM the priority explicitly ("Priority: [Level] - is this correct?")
 9. ONLY after ALL 4 fields are confirmed, offer to create the ticket
 
 Information to extract:
 - account/client: The brand/client name (e.g., Nike, SAP, Cofidis, SNCF Connect)
-- platform: The advertising platform (e.g., Meta, Google DV360, The Trade Desk, Xandr)
-- tagType: Type of tag (js-pixel, js-container, img-pixel)
-- priority: Urgency (high, medium, low)
+- platform: The advertising platform (e.g., Google DV360, The Trade Desk, Xandr, Google Ad Manager)
+- tagType: ONLY these two options: "Tracker" or "Video Wrapper"
+- priority: ONLY these three options: "Low", "Medium", or "High"
 
 Important rules:
 - ASK ONE QUESTION AT A TIME - never ask about multiple fields in one message
@@ -111,22 +111,25 @@ Important rules:
 - If user says "yes", "correct", "that's right" → move to next field
 - If user corrects you → update that field and confirm again
 - NEVER create a ticket until ALL 4 fields are explicitly confirmed
-- If the user mentions "urgent", "ASAP", "high priority" → priority is "high"
-- If user says "when possible", "no rush" → priority is "low"
-- Otherwise default to "medium" priority
+- If the user mentions "urgent", "ASAP", "high priority" → priority is "High"
+- If user says "when possible", "no rush" → priority is "Low"
+- Otherwise default to "Medium" priority
 
 Common platform aliases you should recognize:
-- Meta = Facebook, Meta Ads
 - Google DV360 = DV360, Display & Video 360
 - Google Ad Manager = GAM, DFP, DoubleClick
 - The Trade Desk = TTD
 - Xandr = AppNexus, Microsoft Advertising
 - Amazon = Amazon Ads, Amazon DSP
 
-Tag type options:
-- "JS + Pixel" or "JavaScript tag" → js-pixel
-- "Container tag" or "GTM" → js-container  
-- "Image pixel" or "IMG tag" → img-pixel
+Tag type options (ONLY THESE TWO):
+- "Tracker" - for tracking pixels and tags
+- "Video Wrapper" - for video ad wrappers
+
+Priority options (ONLY THESE THREE):
+- "Low" - when possible, no rush
+- "Medium" - normal priority (default)
+- "High" - urgent, ASAP
 
 Response style:
 - Be conversational and friendly
@@ -136,22 +139,24 @@ Response style:
 - Just talk naturally, but ALWAYS confirm each field!
 
 Example conversation flow:
-User: "urgent Nike tag for Meta"
+User: "urgent Nike tag for DV360"
 You: "Got it! So this is for Nike, correct?"
 User: "yes"
-You: "Perfect! And you need this for Meta (Facebook), is that right?"
+You: "Perfect! And you need this for Google DV360, is that right?"
 User: "yes"
-You: "Great! What type of tag do you need? JS + Pixel, Container Tag, or Image Pixel?"
-User: "JS pixel"
-You: "A JS + Pixel tag for Meta - perfect! And I see you mentioned 'urgent', so this is HIGH priority, correct?"
+You: "Great! What type of tag do you need? Tracker or Video Wrapper?"
+User: "tracker"
+You: "A Tracker for Google DV360 - perfect! And I see you mentioned 'urgent', so this is High priority, correct?"
 User: "yes"
 You: "Excellent! Let me confirm everything:
 - Client: Nike ✓
-- Platform: Meta ✓
-- Tag Type: JS + Pixel ✓
+- Platform: Google DV360 ✓
+- Tag Type: Tracker ✓
 - Priority: High ✓
 
 Ready to create this ticket?"
+
+IMPORTANT: When suggesting platforms, DO NOT mention Meta/Facebook. Use: Google DV360, The Trade Desk, Xandr, Google Ad Manager, Amazon.
 
 REMEMBER: Confirm EACH field individually before moving to the next!`;
   }
@@ -195,7 +200,7 @@ REMEMBER: Confirm EACH field individually before moving to the next!`;
     // Look for confirmation patterns like "So this is for [X]" or "Client: [X]"
     
     // Extract account/client - only if AI mentions it in a confirmation
-    const knownBrands = ['nike', 'sap', 'cofidis', 'sncf', 'sncf connect', 'l\'oréal', 'loreal', 'renault', 'carrefour'];
+    const knownBrands = ['nike', 'sap', 'cofidis', 'sncf', 'sncf connect', 'l\'oréal', 'loreal', 'renault', 'carrefour', 'adidas', 'puma'];
     for (const brand of knownBrands) {
       if (combinedText.includes(brand)) {
         data.account = brand.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -214,14 +219,13 @@ REMEMBER: Confirm EACH field individually before moving to the next!`;
       }
     }
 
-    // Extract platform - only if mentioned
+    // Extract platform - only if mentioned (NO META!)
     const platforms = {
-      'Meta': ['meta', 'facebook'],
       'Google DV360': ['dv360', 'google dv360', 'display & video', 'display and video'],
       'Google Ad Manager': ['gam', 'google ad manager', 'dfp', 'doubleclick'],
       'The Trade Desk': ['trade desk', 'ttd', 'the trade desk'],
-      'Xandr': ['xandr', 'appnexus'],
-      'Amazon': ['amazon'],
+      'Xandr': ['xandr', 'appnexus', 'microsoft advertising'],
+      'Amazon': ['amazon', 'amazon dsp', 'amazon ads'],
       'Criteo': ['criteo'],
       'Taboola': ['taboola'],
       'Outbrain': ['outbrain']
@@ -237,24 +241,22 @@ REMEMBER: Confirm EACH field individually before moving to the next!`;
       if (data.platform) break;
     }
 
-    // Extract tag type - only if explicitly mentioned
-    if (combinedText.includes('js') && (combinedText.includes('pixel') || combinedText.includes('javascript'))) {
-      data.tagType = 'JS + Pixel';
-    } else if (combinedText.includes('container') || combinedText.includes('gtm')) {
-      data.tagType = 'Container Tag';
-    } else if (combinedText.includes('img') || combinedText.includes('image pixel')) {
-      data.tagType = 'Image Pixel';
+    // Extract tag type - ONLY Tracker or Video Wrapper
+    if (combinedText.includes('tracker') || combinedText.includes('tracking')) {
+      data.tagType = 'Tracker';
+    } else if (combinedText.includes('video wrapper') || combinedText.includes('wrapper') || combinedText.includes('video tag')) {
+      data.tagType = 'Video Wrapper';
     }
 
-    // Extract priority - be conservative, only set if explicitly mentioned or confirmed
-    if (combinedText.includes('high priority') || combinedText.includes('urgent') || combinedText.includes('asap')) {
-      data.priority = 'high';
-    } else if (combinedText.includes('low priority') || combinedText.includes('when possible') || combinedText.includes('no rush')) {
-      data.priority = 'low';
-    } else if (combinedText.includes('medium') || combinedText.includes('normal priority')) {
-      data.priority = 'medium';
+    // Extract priority - ONLY Low, Medium, High (capitalized)
+    if (combinedText.includes('high') || combinedText.includes('urgent') || combinedText.includes('asap')) {
+      data.priority = 'High';
+    } else if (combinedText.includes('low') || combinedText.includes('when possible') || combinedText.includes('no rush')) {
+      data.priority = 'Low';
+    } else if (combinedText.includes('medium') || combinedText.includes('normal')) {
+      data.priority = 'Medium';
     }
-    // Don't default to medium - let AI ask for confirmation
+    // Don't default - let AI ask for confirmation
 
     return data;
   }
@@ -312,15 +314,15 @@ REMEMBER: Confirm EACH field individually before moving to the next!`;
     const suggestions = [];
 
     if (!data.platform) {
-      suggestions.push('Meta', 'Google DV360', 'The Trade Desk');
+      suggestions.push('Google DV360', 'The Trade Desk', 'Xandr', 'Google Ad Manager');
     }
 
     if (!data.tagType) {
-      suggestions.push('JS + Pixel', 'Container Tag', 'Image Pixel');
+      suggestions.push('Tracker', 'Video Wrapper');
     }
 
     if (!data.priority) {
-      suggestions.push('High Priority', 'Medium Priority', 'Low Priority');
+      suggestions.push('Low', 'Medium', 'High');
     }
 
     return suggestions;
