@@ -130,8 +130,11 @@
         }
 
         .status-complete {
-            color: #28a745;
-            font-weight: bold;
+            color: #155724;
+            background-color: #d4edda;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 600;
         }
 
         .status-missing {
@@ -449,7 +452,63 @@
                         conversationId = data.conversationId;
                     }
                     
-                    // Update extracted data
+                    // Smart extraction: Parse AI message for confirmations
+                    const aiMessage = data.message.toLowerCase();
+                    const originalMessage = data.message;
+                    
+                    // Detect field confirmations from AI's questions
+                    // Pattern: "So this is for [Client], correct?"
+                    if (aiMessage.includes('so this is for') || aiMessage.includes('this is for')) {
+                        const match = originalMessage.match(/(?:so )?this is for ([^,?.!]+)/i);
+                        if (match && match[1] && !extractedData.account) {
+                            extractedData.account = match[1].trim();
+                        }
+                    }
+                    
+                    // Pattern: "you need this for [Platform]"
+                    if (aiMessage.includes('you need this for') || aiMessage.includes('need this for')) {
+                        const match = originalMessage.match(/need this for ([^,?.!]+)/i);
+                        if (match && match[1] && !extractedData.platform) {
+                            extractedData.platform = match[1].trim();
+                        }
+                    }
+                    
+                    // Pattern: "A [Tag Type]" or "[Tag Type] - is that correct"
+                    if ((aiMessage.includes('tracker') || aiMessage.includes('video wrapper')) && 
+                        (aiMessage.includes('is that correct') || aiMessage.includes('correct?'))) {
+                        if (aiMessage.includes('tracker') && !extractedData.tagType) {
+                            extractedData.tagType = 'Tracker';
+                        } else if (aiMessage.includes('video wrapper') && !extractedData.tagType) {
+                            extractedData.tagType = 'Video Wrapper';
+                        }
+                    }
+                    
+                    // Pattern: "so [Priority] priority"
+                    if (aiMessage.includes('priority')) {
+                        if (aiMessage.includes('high priority') && !extractedData.priority) {
+                            extractedData.priority = 'High';
+                        } else if (aiMessage.includes('low priority') && !extractedData.priority) {
+                            extractedData.priority = 'Low';
+                        } else if (aiMessage.includes('medium priority') && !extractedData.priority) {
+                            extractedData.priority = 'Medium';
+                        }
+                    }
+                    
+                    // Final confirmation - extract all from summary
+                    if (aiMessage.includes('let me confirm') || aiMessage.includes('✓')) {
+                        // Extract from final summary format
+                        const clientMatch = originalMessage.match(/client:\s*([^\n✓]+)/i);
+                        const platformMatch = originalMessage.match(/platform:\s*([^\n✓]+)/i);
+                        const tagTypeMatch = originalMessage.match(/tag type:\s*([^\n✓]+)/i);
+                        const priorityMatch = originalMessage.match(/priority:\s*([^\n✓]+)/i);
+                        
+                        if (clientMatch) extractedData.account = clientMatch[1].trim();
+                        if (platformMatch) extractedData.platform = platformMatch[1].trim();
+                        if (tagTypeMatch) extractedData.tagType = tagTypeMatch[1].trim();
+                        if (priorityMatch) extractedData.priority = priorityMatch[1].trim();
+                    }
+                    
+                    // Also merge backend extracted data
                     if (data.extractedData) {
                         extractedData = { ...extractedData, ...data.extractedData };
                     }
