@@ -103,8 +103,6 @@ app.get('/api/health', async (req, res) => {
     });
   }
 });
-  });
-});
 
 // Get platform list
 app.get('/api/platforms', authenticateAPI, async (req, res) => {
