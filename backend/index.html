@@ -178,10 +178,9 @@
         }
 
         .message.user .message-avatar {
-            background: var(--scope3-lime);
-            color: var(--scope3-darker-bg);
-            font-size: 20px;
-            font-weight: 700;
+            background: var(--card-bg);
+            border: 2px solid var(--scope3-lime);
+            padding: 4px;
         }
 
         .message-content {
@@ -471,7 +470,7 @@
         }
 
         .welcome-examples li:before {
-            content: "→";
+            content: "â†’";
             position: absolute;
             left: 0;
             color: var(--scope3-lime);
@@ -536,7 +535,7 @@
                     <div class="scope3-logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAEUCAYAAAC4bByvAAAACXBIWXMAABYlAAAWJQFJUiTwAAAgAElEQVR4nO3d0XEbR9aG4W8We0/9EQhbhXtxI9A4AnEjEByB6AgER2A6AoMRmIrAwwiWvEeVwQhWCACF/2J6RIgiiRlgZk6f7vepYtmyQfCQanb36T7dU+x2O+Flq20xlbT/IUnlk5e9f+Ut7iV93fvz3d6fK0maTXbV8RECAAAAwDBW2+Jc0htJzT+nesyLFP797Quf/iBpvffnr6rzIYX/vpa0nk12+6/JWkGCXltti6bRleGfU0nvRgxho7qx3qluqHck7gAAAADGEEE+dK+QBzUfOSbu2SboYWe83Pt4adXH2r3qnfZKUjWb7L6++moAAAAAOCAk5OXex5jJeFsbfZ8L3b366gRklaCvtsWFpAvFnZAf0iTsN+ywAwAAAGgrbFJeSJorzoT8kCZhv1GdDyW3eZl8gr6XlF9IOjMOp28bPTbOG+tgAAAAAMQlgaT8NfeSlpKWqSTrSSboq21Rqm6AKSblL2mS9ascSj8AAAAAPC+Ur19IulR6SflLvqjeuFxaB3KKZBL00Ajnqhuh1/L1vjxIulJCK0kAAAAAXhd2yy9V50W5bFQ+tVG9q37l8ZI59wl6aIQL5bVb3lazq77w2DgBAAAAHBYqiC8lfTAOJTbXqjctK+tA2nKboO8l5h9NA/HjWiTqAAAAQDJCYr6Q9N42kujdqs6FKutADnGXoJOYn4xEHQAAAHCMxPxot5IuY76zy02CHs6YLyR9Mg4lFSTqAAAAgCNsVvbmWnWiHt19XS4S9NW2uFTdEDlj3q+N6ssTFtaBAAAAAHhe2Ky8lPTZOpaEbFRvWF5ZB7Iv6gQ9lG5cKZ9HA1h5kDT3cCYDAAAAyEnIiZbiSVVDuVedC0VR9h5lgk45u5kvqhtndKUeAAAAQE5CTrQUN7OP5dcYKoujS9BZITK3UZ2k31gHAgAAAOQo5EQ34ojv2G5V50JrqwD+YfWFn7PaFgtJf4nk3NKZpD9X2+IqrNoBAAAAGMlqW1ypzolIzsf3XtLdaltcWAUQxQ56uI3wRpw1j01U5zEAAACAVJETRcek5N08Qad8I3ob1Y8gWFoHAgAAAKQo7NguRU4Um9Efx2Za4h4en0b5RtzOJP0RSm0AAAAA9Cgc8/1T5EQx+iipGvPor9kO+mpbLFV/w/CDW94BAACAnpATuXEvqRwjDxo9QQ+rDzeqD+DDn9EaJwAAAJCikBNV4ry5J6PkQaOWuO81RJJzv96pLvM4tw4EAAAA8Ibk3K0mDxq03H20BJ2GmBSSdAAAAKCjMH+uRE7k1eBJ+igl7iTnydqoLvPgMWwAAADAK/aScy6D82+wcvfBd9BJzpN2JnbSAQAAgFeRnCfnnerH4vVu0ASd5DwLTZI+2qMHAAAAAC/CPHkpkvPUfBjiUdRD76DfiOQ8ByTpAAAAwBNsWCbv02pbzPt8w8ES9PBMP25rz8c71Z0PAAAAgFolkvPUXfV55HeQBH21LS4lfRzivRG1d2FhBgAAAMhamBeTnKfvTD2eR+89QV9ti1LSb32/L9z4GBZoAAAAgCyxYZmdd6ttsejjjXp9zFo4Y7EWFyBA+mk22VXWQQAAAABjChuWf1nHARP/PvUR1H3voN+I5By1Gy6NAwAAQE5W22KqOidCnpanvkFvCXrY0udSODTOROcEAACAvCzFhmXO3p163LeXEvdwa91/T34jpOjX2WS3sA4CAAAAGFLYsPxsHQfMbSRNZ5Pd12M+ua8d9GVP74P0fO7zsQMAAABAbMJ8l+QcUl1BsTj2k09O0MNKEY8PwGuW1gEAAAAAA1paB4CofAr3EXR2Uol7+KJ3yuecxYPqW+oV/rl+6YVPnEtqLkx7ozwXNCh1BwAAQHIyKW2/l9SUbK/VLg96ozoPauR2X9n1bLKbd/2kUxP0pdJ8vt+t6oWHdfjn3bFnCF4THsHQNNzm423fXycSG0nns8lubR0IAAAA0IewYfm3cRh9updUacA8KBwHmCqPHOj/uv78jk7QE3u+34PqG8dvrJ/dHX7Jy/BxobSqE77MJrsL6yAAAACAPqy2RSXfO8MbhTxIUjXEpmQbeznQhaQPFjEMpHMV8SkJeqU0GuPVqQ+TH9JqW8wlzeX7Z73vJ+tFEAAAAOBUzjcsb1XnQdE9Fnm1Ld6ozn8u5X9nfTOb7N4cftmjoxJ0541xI+lKdYM0WSE6RlhVWsj/kYL72WTHre4AAABwbbUt1vKXQN5KWnjZMAublQv5+znv+3k22S3bvvjYW9wXR36etd9VP5Nu4Sk5l6TZZLcOlwz8pPpsiFfvwi8aAAAA4FKYz3pKGjeS/jOb7EovybkkhcT2XHUe51WnI76dd9Cd7p5vJF14aoyHOL8t8mE22U2tgwAAAACO4Wz3/FZ1LuRqg/Kp1ba4UP04O493dLW+LO6YHfT5EZ9j6V717eGVdSB9CpcN/Kx68cGbt+yiAwAAwCNnu+fXYdfcdXIuSeG8fCmf+U/rXfROO+gOHyNwLymJBvmS8JiCSv5WkthFBwAAgDuOds+Peg537MJO+p/WcXTU+mlWXXfQ591jMbNR4sm5JIUb6OfWcRzhbTguAQAAALgQkkMPyfl9ism59G0n3duZ9NaPjks5QXd/zqKt0Eh/tY7jCAvrAAAAAIAOLq0DaGGjjheTObSQs1L3tpuTrRP0UErtYbVIkn5P7cz5IeFM+q11HB29D8cmAAAAgKiFeet74zDaWMwmu7V1EEMKG7FX1nF0VLZ5UZcd9PlRYYxvo3x3ZufWARzBwyokAAAA4GHe+jCb7LwlrsdaWgfQUdnmRV0SdC9lEle5lLY/FVbKrq3j6GhuHQAAAADQgod8aGEdwFhC7nNvHUcHraovWiXozsrbl9YBGFtYB9DRGY9cAwAAQMyc5EOb2WS3tA5iZDfWAXTR5nhv2x10D6tFUn1b4do6CEtOd9G9tC8AAADkaW4dQAtL6wAM3FkH0NH00AvaJujlSWGMx9UKyoC8/Rw+rLbFG+sgAAAAgBd42FDylgP0wdvR5vLQC9om6B5uK5SkyjqAGITHrrl67IB8dHoAAADIjKPy9so6CBx0cFPyYILe9nltkfBW4jAkbytoJOgAAACIUWkdQAu55kHevu/zQy9os4N+8E1ikevt7S+orAPoqLQOAAAAAHiGh42kyjoACynmf/9s8Zrp0EH05NY6gMhU1gF0dLbaFiWlOacJN0NOVS+svQn/Pg3/e6r25VkbPa5Ifg3/3vxznftljHhZj21Qqh+d0gy8TRtch4+7FAdlxClUE071Y9tu056b+cnTvpQ2jO880382/1T497OWb/VSm2P8Pp6H475r6wDQj2K32736gtW2qOSjUd7OJrvSOoiYrLbFWvGfl9n3+2yyu7QOwotwHmr/Y+zf01uFRElSNZvsvJUY4UQhadlvg+9GDqFZSPr2QTvEqUKSVIaPodt104Yr1f1oNeDXQkQMx/D9frNS3W+uR/raLoW/q/9ax9HCT7n2Iatt8XpCG5nZZFe89v/bJOhf1X7FzhIJ+hOOFlca/B2+IkwaL/Q4cYzx9/JW9f0HJOwJWm2Lpv1ZLAi1tVFIdkQ7REthAj5X3cdaL2zfqm6/N7TfdEQ+hj/ocez2dofR4Fbb4lLSb9ZxtPCvXBdbckzQvXzDJHdPrLbFQtJn6zi6ONRgcxPZpLGrjeoB/4YB36cnE8oPlrGc4Fs7VD35pKQ4CBUQf1nH8YLBx3Qn/WuTOC1J1v1x0sae80WP43f2feZqW1xJ+mQdxyE5z6Ed5auSTkzQHZV0SCToP3C04rcv2/KcRkiKLuVvQH9NkyQtc//7jd1qW7xRPaGca/yS9TF8Ud0Os180yjFBD+37QtJC/vrXe0lL1e03+6QpVgmO4dfKfKHdS0UqCbofh/6uDt3ifvA5bYiax9X20joAK6ttMV9tiztJf6teqU1hYG+cSfoo6a/VtlivtsVlmCgjEqttcbHaFjeS/qd6YS/F5FyqKwH+XG2Lr6ttsQwL0UjcaltMwy7YWtIf8tm/vlP9u7kObXdqGw72hTG8Unpj+EfVfeZ6tS0WmY7djBMYVZvHrMEvjyvsWXWCYdK4CHc9/KF0k6J9b1VPMv/HJNPWalu8CYsla0l/ym8Z+zGaRaP/rrZFtdoWc+N4MIDQxy71mDTFdO73WE3b/Xu1LW5CJQQMhD50fwyPfpf1BG9VH5vMcYEohX4D8Xg49IJDj1nLKllKzWyyu1tt3VW7TK0DGEMY2BaqJ1k5+yjp42pbXIvy99HslWDOxcRDqifV78O9HVeihNi9jPrYD5I+rLbFraR5rhdEjW2vfV0ovz60WSBqxu5FBu3uJ+sAkJT1oRccStBzLGOBraR3kDOaNHaV22BvgvZ3UFPdsQjl0Fck6r6E8tvL8JFT4vRe9Y76taRL2u0wQvtayMGFYSPZH7uTbXdsHmBslLgjOimeCW3K4FTfC0By9LKmbHOZ6Tm3Qey1v79F+2vjTI+lnJfWwaCd8BjAO9V/dzkl5/s+qm63C+tAUhN+pmuRnD+Hdge0d/COMBL09G2sAzhCUolZONu6Vt6Txq6awZ7k6EThZ7iWs0cuRuJM0m/hcqTSOhg8LyxA3ai+RyGVi7lOcSbp82pb3KW44D22cIHmWozhhzTtjv4SeN3BShMS9PRxk7uRcDlRpfriGAb17prkiEnmEVbbogxPBfhNtL9TvVX9BIIqs4uRohd2zdfK64LDtt6pvgRxYR2IR2EMZ+Gnu6a/pBIOeF516AUpJehM4BGNvXL2lG90HQuTzA7CbuKV6udbJ32ng4H3ku5oi/ZCO1+qTp5YgHpds5s+tQ7Ei1B5dCcWfk7RVMKV1oEAkVkfesGhBP3gG0SEATodpXUAx9rbNacUrn9MMg8IE6E7cUZySJQPGwt9QCXuU+jinerFpbl1IDELCz+VqDzqy5nq3fQr60CASDy0uQj50C3uB98gJqttUXLT4g8u5e9Mt8tbQEOp5VIM6kP6NsmcTXY31sHEJEyASMzH805StdoWi9lkx+RzJGER6kb0s8c4k/THaluczyY77vd4gjF8UJ/C7+4FT2lB35wdpWh19PhQgu5NqRZ1/TmZTXYez6C7Q3I0qjNJf662xe9MMr/tJt6IcnYLzT0JpepnULtcXPQi7P7+YR1HAj6F6o8L2myNMXwULLBjKJ6q2Vq1/ZRK3CXpwjoA5CWUw1FSbONTuLTL08ppr/YeK0VybuuD6omnp0mCK+HcP8l5f96rrgDJus3ulbQzho+jWWBfWAcCGKnavOjVBN1hGco7LqPAWMLEZi2SI0vZTjLDBIcLsuLxVnVbnFsHkppwGRyPCexfc0wju/5T+jaGc5mrjc/h9xrow9Q6gJbu2+bWbW5xvz8tltEtrANA+sLOZSWSoxhkN8kkYYlWc8Z3YR1IKkJb5zK44Zwps/5T+pacV+LxaZY+hss2s62CQ2+89F/Lti9sk6B7O5/0PiRPwCDCDhk7l3HJYpK5d6SChCVu7A71IJwLpq0PL4v+sxHG8P+KMTwGzQI7STpOUVoH0NKy7QvbJOjV0WHYWfIoJgyBS4qidqb6eelz60CGECYwlThS4cXH1ba4YeJ5tHNxLnhMWSTpjOFRIknH0UK+52FedN3lUs42CbrHW8DPJDExQq8Y2N34I7UkneTcrQ9i4nksdjfHl3SSzhgeNZJ0HGthHUBLyy4vTnUHXcrwXCqGw8DuzlUqv/tcRugeE094kmSSzhjuAn0lOgm75x6OQd3OJruqyyccTNDDdry3i+IazS87Z9JxNAZ2l5KYZIaJylLsJnrHxBOeJFWFyBjuCn0lulhaB9DSousntNlBl/zuokuPz1ysOJeOrhjYXWuS9KlxHEehrD057+R7LEVemscGuk6UGMNdoq/EQeEiVg+PSOy8ey7lkaA33kv6e7UtuEAOrYTdVwZ231zuBJGcJ+sdt7vDkXeSrqyDONZqW5RiDPeKvhIvcvb4zcUxn9QqQZ9NdjeSNsd8gQh9VJ2oV6ttMfc2ccc49p6RCv/eSbqxDqKjpUjOU/WRiScc+bjaFpfWQXQVxnBv/T6+93G1LRbWQSAe4VGzlfwk59fH7J5L7XfQpfQ6uveqV1b/Fx6Fc8nOOiTO/SbqfXimcvRC8vbBOg4M6mNqTxpA0n4Lu9EuhDH8RozhKfjMPVKQpLBQuJaPsnap3tg+enGz2O12rV4YfkH+PPYLOfKgeuf0TtLdsSsf8Gu1LW5EgpSq/4SKoChxXjI7P1mOMSHp+svq68OVjaRpl+f4WlltiztRgZSSjaRyNtl5fOwzThAW2y5Ul4m/tY2ms5Pmm60TdElabYu1/P2A+nCvetXmTo+J+9oyIAwjrND9Zh0HBrORdB7j728oyfyvdRwYlWnSQ4KOjr7MJruodzNDpdQn6zjQu3vVSXr0C0Q4TUjKS9WJ+YV8VsKc3Fd2TdAXkj6f8gUTc6sfE3c6D6dIkLJxO5vsSusg9oUB6U55LoDm7n422Zk8DpAEHUf4ZTbZRXlcKKNKz1z9Ppvs3N2HgNeF48XnqpPyc/kpYX/Jg+qNoJPywa4J+htJ/zvlC2bgQXXSXoV/3lGWEz8SpOxENcnkWEX2fp1NdouxvygJOo4QZRVSmOTfyedu20vuJX0NH8/NI+/C/zuX9PTC42n4eKO0yv2jPqaGR+F3crr3n/b/XCq9ttn4dx95X6cEXXJ3tX1M9svkK0nr2Aa4nNGus/SvGH4HOVaBYPTz6CToOFKMVUjez53f6vv7j9Z9vnmoEJyqToxK+f1ZubkLwcpqW3RL7NCnn2eT3bKPNzomQZ9K+ruPLw5t9FgevxaX0pmgLC5b5pPMRHd9cJxeyuK6IEHHCaLZyXR6/PJB9U3zNxbzvr3Lty7lL1mP/i4ESyToZno9gtE5QZfYbRzBg/bOtavebadMfgCUtmfPtNQ9PM/T+3kr9GfUM5Yk6DhBFDuZDu+OuZV0FcvihvRtoXghX/P6aBaIYkOCbuJ6NtnN+3zDYxP0qdhFt/DdpXTstp8u8Rtfm/NrVfhzc17tkDeqz7RJj2eGzpXmLq/ZJDOT0vamSmj/DGXbdjjV43m15oxlDosZo5W6k6B/p7k/pmmfL537fU7TPpu+c6o8Fn1N7k7Y56i0/VbSPIZjVS8Jc/ulfPSzo1cceUGCPrrek3PpyARdcltSlKJbPZ5r5/FvHThceX/NRnUbqCRVQ1RchGqD5qbNUj4G8TYG6VxfE36Wa6W36HGvumxzsMdRPrnxtZSPyXkXD7PJbjrGF8o4Qd/vLwdb7A4/3/Pw4fVxQYeY3eXhZJFzozoxd7Pb6+TnKkWwQBQjEvRRDTZ/PCVBpzQ4Tg96nHjcsLr4skTKi69V/z2PPvjvnWGby//PcdRJZmLHhL7o8SylRSVC0w4vlM5N+KNMPDNL0Jszv0urI2NhUXiuuq2mMncafYFTcnN/x62kC4/zsNBWK8X985Uiuew1JiTooxm07zs6QZe4XMuJe9WdrNmkJEarbTGX9Id1HEfaSLpS/Xe6No5FktszbPtGuzAukaQoujYofWuHc9UXH8U+sXzNKI+ySqQtHhLdmV/p2/zpUv4XNyWbJxAsFfd4Y7Jw0ScnSbr5Za+xIUEfxeC/3ycl6BLP73Vmo8edrqgmK2NbbYu1fO5gfJF0GVNStC9M+K/ks+x4lEmm88qNJjG/inlXKOyqX8p3oj74BCDxBP1W0iL2u1qc95mNUZMkB+3WfXLecHIUcPQFopiRoA9ulMuF+0jQUz1Lmbpsk3Wnu+duzrGFPuFKce9uPGfwSabzqqPoLzl6KrTFpfwuIg9avukg0TnGRnVibvZ0hmOEc78L+Z1LjXm5YaV4FzmTewSYgzPp7KLvIUEfzKjz8JMTdCnZQT4nD6onsVGVqw7F4e75vepzbGvrQLpwMKg/Z9BJpsO21zB9HN2pwqLclfwlP4NOPBMcu132lY2wW7mUz930UZKkyBc5k71ZPPJFEYld9G9I0Adxrzo5H+2o8D/6eJPwS/FrH+8FE29V38j/92pb3IQBMElhou4pQbqXVHqccIaE7hfrODpaDPXGDtueVK8Y/9tzci5Js8luqfrG941tJJ29D0k0DruW076yESZ/pepqFW/ehzsghhZzXzRPMTkPLq0DOGBhHQCS9bvqsWXUe7x6SdAlKdw4+6Wv94OZD5L+XG2L9WpbzEOJaEoW1gF00CTnbgf8kNhdW8fRwZCTzMVA7zuUjQwGpaHsJT/ekvTYJ8YxuJ5NdkkkR7PJ7mvYifbUbzYWQ7555Iuc1ynv4Ib+M+Y2yWIm+raR9J/ZZHdpMbb0lqAHc9VJBfx7q/qc9nq1LRYpJOqRD+5PNWdd3E84VScYD9ZBdLDo+w1DVYqXticllpw3nCbpH0bamfQqmQu5nriUv/nUx4HnCosB3/tUC+sARrC0DuAAFjPRl2tJU8t7n3pN0EMyUcrX5AevO1Nd/p5Cou6p875MJTkK/cLcOo4OLgZo557anlSf402i/T0Vvi9vx3gW1gFE6l7+frdacTyfGuTvI+yOxrrIee35aEVboUIg5kUjFjNxqgfV9xmYb5D1vYPueVDB6/YT9blxLJ2Fwd3LxTu34cxsMsLA7uUIzJl6XFAIFz/FfLnOU7+mXKopubw3ZeidSY9SqjJ6VvjevC0mzQd638VA79uHmM/F921pHcABSS7YYXAb1ZfhTmOZ//SeoEtuywjRzpmkP1bb4s7ZeZ+5dQAdzK0DGMjCOoAO+hzkPU0Y7sN9IskL32fMu0FPeWpHY7hKtcpjX5gsxnz296m3fV80G/ki50MO7XBPZR3AASnenYThbFQv1k9juwx3kARdIknPwDtJf622xVXsnWGIz8szuZMtlQt9gpfbid+GSeFJnLU9Kb8k0NP3O7cOICIPuSwkBZfyNZfqe9c/5t9TszOqFsI4HvOdMmfyV3UCO2eSzsNHVAZL0CWS9Ex8Ul32HnOHOLcOoIOFdQADW1oH0EEfk8KYfy+e+hJLaddYwvfradHIU3sa0sI6gDGFUveodncO6O0ej/A+Mbf7rBL0IPaKgbl1AHDlg+oNx6ieXjVogi59l6THvOKG05ypfjRbrLvpc+sAWrpNdfe8Ec7We1mw62NSGPPOz1ML6wCMLKwD6CDmRGUsD6nd0dHSlfz0nX3uYl6E94tSbouaQewJ+pCPS0W6onp61eAJuvQtST+Xr/N+6O6TpKqP0uC+hE7ay+VwS+sARuJlx+HslB1LZ23vNrNzlN84uJl4H5fF+dpJ7k3YRffSd0r9JegxL3J66Tf6VlkH0AKLmThWFE+vGiVBl7673d3TZSfo7p3qJD2WzjGWONrwNPk6RWUdQAentJ95X0GMYGkdgDFPSZ+nPm0IS+sADC2tA+jgw6kTWweLnGvrAIysrQNoYW4dANwzfXrVaAm6VCfps8luLumXMb8uRteUvMew8j23DqCl25QfF/REZR1AB+UJn+spkcplceglnr5/T+2qb18y6id/EKo9PB0XLE/8/BjmEK/JtepobR1DC+8oc0dPTJ5eNWqC3ghX2f9bvgYadPfbalssrb64g9X3fZV1AGMJg7uX3/2jbnN31vayTnqkbxVeXi6LO3ln0jFPCylDqawD6ODUxaTYF6PW1gEY8nAfQuztB740T69ajjEGmyTo0nfn0r9YxYBRfDRM0j11zpV1ACPztPNwTDvy1PZIemqVdQAdlNYBGKmsA4iAp9/X8thPDAujb/sLZRBr6wAMeRjDS+sAkKSPGuHpVWYJuvSt5P1C0n/kYzUOx7FK0kuDr3mUDG+C9TC4N8ojPsdTgl5ZBxCJyjqADjy1r748OCmtHVplHUAHR1UgBWWfgSBLH6wDQLKao7yD7aabJuiN2WR3I2kqLpBLmUWS7qVzzvEmWE8J+vsjOuD3g0TSvw1JT83ZIllpHYABT33GYMJxDC9HhKTj2+q8xxiQqTHPDCNLHzXQ06uiSNCl7y6Q+0l5Jiw5GC1Jd9Yp53j+d20dQEetO19nbY+k53texp63GV6ARFt9tLYOoIOy6yeEBVEPd3jkOHZ7U1oHgOQ1T6+a9/mm0STojdlkV80mu3NJP4uy9xR9HOlxBeUIX6MvlXUAY3P4zO1yoNda8/b3MDRPE+7SOoCRVdYBRKSyDqCDcqTPGZ3DcaxPlXUALZXWASALzU3vvT2yNboEvTGb7Jaqy95/FYl6av4YYZdx6PfH6Tz9XpcDvdaap4R0DJV1AB2U1gHAjKff27Mjqj1yvGMBw+i99Bh4xae+KoWjTdClb2XvC5Gop+hm4McUeOqUK+sAjHjafehyptzL+XMp37aXgtI6gDE5uyNgaJ76Tqn7eOxp/EbczoY4Hwy84mN4ZvpJOU7UCXrjmUTd0wUpeN6ZBnpcTFitPxvivZGvNoM8EwH3KusAOnib8fPQ4UuXOzy8nD+HH4zLGFtzLv3oMfqfPQYzuHB76ULSIpxjnsvXbhW+9361LS5nk11vZzYCOmMf1vL1+zvV4Z0rb21vbR0ATnIuX4sKx6J67ntr6wA6Kgd6ranVtlhYx2CotA6gg6l1AMhSk6SXIX/txFWCvi+cUV+GHat5+GDX1J/Falvc9PyoJ29JUq7W1gF0dK7DVR+u2h6PWHMvlwTdW0n3oGaT3Xq1LazD6KJLv+ipD/1sHQBaKa0DQLbeqR6jO/drbhP0RrhF81LS5WpbXKhO1L08/xr1ospS/Xagngb4bM9WhmMrC+Mw+uaq7cE92hs8OFttizctd5HKoYNBdqbWASBr71bbYhkeJd6aizPobc0mu5vZZHch6f9UP6bti3FIaOd9z7e6T3t8L6ALEiaMaWodANBS275xOmQQyNJb6wCQvY9dj8S430F/TlilXYYPhZ31UvWjO/hFjdNS/Q3MXDADKxyzwZhYEIIX05avY46G3q22xTSXI12zyS7K8y/hSLDUOtoAABz8SURBVHJzadobPY5fzX/3dCfRMT6vtsXdbLJrdUF2kgn6U+GHcaO6DH6qOllvPhgM4vB2tS3m4W6Box3xvFWgFz1XgQBtsCAEL6aHXkAfigFN5e/em6SEI8n7fkhUw63n56rzs/PwkVKetgyXxh28VyWLBH1fWEFb6nF3/Y0eG0Kp+pc4pcbgyULh7+UE05OjAAAnwmBfWccBHDDt6TXAMXgkpQOhArrS3uWnYeOtqYT2fsdYc+/Wweq3pM6gHyM8Y/1mNtktZpNdOZvspqrPsP8k6RdJv0u6FY95GcPbcBzhFHTCsFJaBwAAkZr29BrgGBwHcmo22a1nk93VkzvG7o3DOsW7NufRs9tBb+O5FRzpu9KL5rxEKXbc+3apw4+yeg2dMICc5PKoNaRvah0AgHjt3zEWjsTMJX00DOlYn8Mjpl8sdSdB7+ClxF36dnZqGj6afydx7+59Tpd5IClT6wCQJaqG4EGbC6CmQwcBIA3haFe12hZL1UdkvV0yt9Qrm4ok6D156QwgiftR5jr++djT3qIAuplaBwAAjrHYhKGU1gFgGCH/Klfb4lLSb8bhdPHutcuxSdAHRuJ+lLlI0AGgDY71IBU8IhXAUWaT3dVqW1Sqq5y9POHkKpS6f336P0jQjbRI3M/3Prw0tL68XW2L8zaPIQCAzLHrCBc4vgZgSLPJ7i48b/1GPhb8zlTfvbV4+j9I0CPzXOIeGlvzGLhSeey0l5JI0OEJO5kA8LKpeBY1gAHNJrv1alvM5Wcn/XK1La6e7qJn/5g1D2aT3d1sslvOJrt5eAzcv1Q/Au6LbWSDOvVxa8DYPAwEABCdsBEBACcLFbhe8ohmF/07JOgOPfNMwF8kPRiH1TdvtzECAIDjcFQDQG9CRfK1dRwtzZ/+BxJ052aT3deQrE8l/STp1jik3oTz+AAAAADQxQ8705F6u9oW3+34k6AnZDbZVbPJrpT0s6SNcTh9KK0DAAAAAOBLONftchedBD1B4Zl6U/nfTedMGgAAAIBjLK0DaOnDalt8O+pDgp6oUPpeys/K0XOm1gEAAAAA8CecRfdSVfytzJ0EPXGzyW4uvzvpHp5hCAAAACBOXh7bTIKemQv5WT36Do9egSOpPUkBAADAOy8J+ofmX0jQMxAuSfByk+FTPHoFXqytAwAAAMB3vloH0FbzBKt/rrbFVM88fy12s8luYR2DJ7PJbrnaFleSzqxj6WhqHQAARGxtHQDQkpddLACwUkqq/qk6AfpsGspxFtYBOLSU9Mk6iI6mHV9/J+n9AHEAQIzW1gEAbYRqvpeQvANAeILVP0SnmJPKOoARuCljQXLoSwHgCAeSdwDIRZ2g0ylmpbIOAEgYfSksrK0DAFrgEk0AOOyt5PiSOG737i4sxni7zb3r3zO7mLBCgg4La+sAgBbWLV7jbX4CAL1bbYvyn+Hf7+XvmdPc7n0cb2e0u/49kyTBCotDsECfh1R4m5/cWgeA1hif4UqToDPAIxV0wrBCP4rRzSY7+jx4UFkH0LfZZFdaxwAgSWVT4s4AjyRwpwKskCjBAOd64UWbsZk+FAD0eAbdY1LDGXS85N46AGSLhAljWlsHALTUJvn2OBcFgN41Je6V/D0LnTPoeVgf+Tne7lRAGtYKN3ACI2DHEV6sW7ymkr+5KBKz2hYL+WiHv84mu4V1EBiG5zPoU+sAMIr1EZ9zJ+lDz3EMZrUtytlkV1nHMTZHg2CjzWBYydclR/BtbR0A0MZsslu3eJnHuSjSQzuEuX9Ibs9OTq0DQLQ8tuccTa0D6Gjd02uisdoWVCL5Rl8HD1rddu50Lor00A5hbv856N4eFzG1DgDRonP1YWodQEdt2pW3tsddHo5lVHlDO92z2hbefh5d+kXukAHaYYE9YfsJureJJec881B1/YRQSrfpPRJkrc3uTngNbc8vT4lPTonMmXUAkfE2Me8yv/Q2F0ViHC18ehqv0JHnBF2rbVFax4BoVdYBdFBaB2DE0+DSpcLIU186tQ4gMp4Sn8o6gDFxHMM1EnR4wxNZYGo/Qa+sgjiBpwk+jnDCSiaDfPw87YpVA73W2tQ6gMhMrQPooLIOYGSM949K6wA62HQ8W+5m7GaTKGlr6wBaoE9M19dvCXooC/a2YkTjTNsp7bHqK4gRlNYBjC3xM5TVUEEMwNvfw9Cm1gF0UFkHMLKpdQAR8VRNUHV5saPyYqStsg6gBU+bHOjm7h9P/kNlEcUJSusAMKj1sZ/obJD3NNnqi7fvuWr7Qmdtb2odQGS8PCLvfjbZ5fYooKl1ABHxtLBWHfE53i4tRnrW1gG0QRVHup4m6DcmURzv7WpbTK2DcGZqHUAH1Ymf/6WPIEbwzjoAA6V1AB0ckwy5aXuc7a05q+qorAMwUFoHEBEvC0nScW31mM8B+lRZB9CSp3ELLc0mu8r7DrokXVgH4Iyn2+8r488fTYaroJ4GlWMWLqu+gxhQaR1AJFJvk955+vsZjLOFpIcjn21e9R3IQDz9XaADR08DKq0DcMLTRsRGerKDHnaJvOz8NObWAXjhMAk89bIYT5PY3AZ6T9/vMe3IU9srrQOIhJfF3o2zYxR9OXOWnA6ltA6gg+qYTwrt20Ny5GnSj+4q6wBaKK0DcMLT2HEn/VjiLvlokPveUebemqcGevIZy7AC6uVZwaV1AGMJv69eKjm63kAsyV3b85KYDq20DqAlT4s/fZtbBxCB0jqADk5pq1VfQQzI05wK3VXWAbRwttoWjOGHTa0D6OBOkv75zP+4kfTbuLGc7DJ84HWldQAd9DUJvZGPM94frAMYUWkdQAentMOlfPSlb1fb4vzIUtQkhAmOlxtxc07QL5TxWB/ui/AyVmxmk90pbfVG8X+vWSfooSrzL+s4Wvq/IzZ9qiECGcCF8h4XXuVsU0gK7e6HHfSw8+OuzJ2Ljl7nbGCX+k3QXchoFbS0DqCDUyeYXsytAzDm5Xfv1KTHu7eZl7l7aafS6f2fh3b+NvO5p5fv/aiKzLBo7eHx0x+pJH5VaR1ARy+WuEs+OsZ9Z8p4Vb0lTz+fYy+W+UF4Hy+lxnPrAEbiZZJ5UjLkrMw920XO8H1/tI6jJW9j8xA8jWV98/S9n9RWHd2JVFoHYMjLYtnyhM/10ufOrQOI2Nw6gA4ewtzx+QR9Ntkt5eOCjn2XuU4wDwk/l2wG9mcse36/oXxIfRU0w1Liqx7eYwxn8rNw0jdPfaOX9jSkjzmO9aGc2MNxLam/Sg8PyVFpHYAhLwl6DpVwn1OfPx4j/ExcPpbypR10yU+jbJzJTyI2tkv5SYqk/v8ePbXluXUAA5tbB9DBsof3uJGfxc5FbomPs8XL+5zvCXhiYR2AgYV1AB30eUQt9v4z14VNyUeCftvsSB4jPFHAQ5m7xALucxbWAXT0re98LUFfDB9H7z5kdI63lXBe77N1HB30Vt7ecHavQrKVIGEl08s9CA99PMoqlGl6WSB6Kz/Jal8W8rN4yeTr0aecdovC7rmnXaBe2qqT/jPLexEcXby17OE9Ym+DjQ+rbTG3DiIWod/0cnxNkrRfefRigh6SmtsxAurZMsfO8jkh0Vtax9HRUJNQL5PbM/lcHGtjYR1AB8se38tL25PqMrks+s8weH+yjqOljfxMEseytA5gDA7H8b4rPZY9vtdQclvYlHxUDvTVby57eI+xXOUyhr/GYb8pSdf7f3htB13yNaFunKlO0pPchexoKT9n1qS6M10O8cbOypQ+heQhGWG13dNKZm9JdZiselrsTL7/dDh4L4+5hThx71fbIofEaCEfO5WNXhckw9gd+2WbOd6iPbcOoIVe+k1nlw2fSapI0rWUr35TerKY9GqCHjpGTxPLxjvVDTTpSeZrVttiKT/lxI2bgSehiwHfu2+pJUlL6wA6uB6gHS56fr8hvZOvXf9jLOVr8E797+NYv6W2mLkvlKt6qfKQ6svhlgO8r4f2v7AOYCxhMcLD5k+f7cZDG2xknaQ7zX9+uFjz0A665LfTeSfpLrcGutoWb1bb4k6+disbi4Hf38OFM4238pXUvijscmV3fnKfswoOqd4RWloHMQSHg/f1KZccZeAmxXE+fE9/WMfR0SBJjJMnC31MsR2+YGEdQAtf+uw3nbTBfU2S7uEoQi9C/nMjn/nP8ul/OJigO95Fl+okp8qkDK45U7mWj5XNpwafhIZdUU+roB+8J0mhTf5mHUcHtwPelL0Y6H2HklySHr4fb4P3wjqAyCW3WxS+l8o6jo42GnZ89TB2p1b59oPQNj30oUO0Fw9tcN+ZpD9X2+Iqg3ZZSrqTr8X3fT+0rTY76JLvCcKZ6jK4KtUzQqttMQ0Tz7/k50bipxYjfZ0r+VoFdZskhYHc28VWi6HeOKzAe9pFl0L78z64O15ZZ/e8nWR2i0JZ+3/lbyy/GviImoexO5fjQbG77eMpLM/w0Aaf80l1RfHcOpC+hbF9qTr/8XRsbd+z1R6tEnTnu+iN95L+DpPNqXEsvQiJ+UL1qpG3iee+0SahDnfRpTpJuvGUJIWJciVfk8yhBvV9Hqt5PsrxDuXebqTHlfWFdQCOfNstsg7kGGGieSV/Ze3S8Lvnnsbuj17b4CEhEfJQobkY4k0dtcHnvJX0x2pbrFNI1Pfyn7V85z/SC22q2O12rT47JLV/9xePuS+qb3j0tsPXJD8X8t8opXpgn455Q3FIdNfylTxK9e7rfIQk8iSh0/xsHccRfhrjZ7vaFpV8ncnf96uG3ynrRfg9v5TPtihJv88mu0EXdEJZ4F9Dfg0j95IuY+8rG+HvYSm/O0C/zia7xdBfxNnYfT2b7ObWQfQlHBX1cFzty2yyG6ySxlkbfM2D6grHK09VWiH/mcvngvtzbmeTXfnc/2idoEtSWBX0dKNoG81zEm8kVbFOPPeS8lJ+B/HnjDKwP+VosHnOtaRFbJ1qmGReyccK+1MvdpJ9SyApelDd/pbWgTxnLzG/lN9J1CgLlwm0xUNuVbfVyjqQ54Sf/0J+F+ykkRfZnS0AX6teKIpyXtmWs7s7/jX03MhZG2yjSdZvYusrQwVcGT5SScr3vbgx1DVBT2Xl6DW3qkvG7yTdDXhh1ItCg9z/8Dx4v+ZhNtlNrb74alus5Xux41r16ufobXRfWDzydlP7U6PsnjecTXhe0pS1LmNYLApVXpeqV9e9j1G/zCa7wUspM0jQG7eq2+nSOhDp2znzuXz3mY3RF9mdjd0uKt+eE/rUpfy008GrjqQscqF77eVBktYjLHq8UZ3vTMNHGf6c6s9YOrAx1ClBl75Nxv88MShvHlT/MjYfUt1ov1sVfa0D3mt8+84lvQkfzb973H081qhJ0VMJTU7vVQ+iN2MlSmERaa66qsPLROklo5ciJjjAN22wGnPBKPwOl6rbYSp95/1sshvlvH9CfWBbTcVcpbq/HGvX940eK+AulM7vvckiu9N56BfVu+lr60AOcVqFNHYlx1w+74s4RZMLSc/kQOHPT8f/8pn32c+Hcst79r1a7dE5QZekcBtuiqUGGM8oK52HJNiWH1RPPverQE4asMIkvulQS6W1qrmRdG4xaXJ+zOI1G9Vtrwr//NrHQlxoh1M9rq572dXp6t9jLXJkmKA/1ewUrVW315N3isKu41TfV8GlOgE1W2R3fJdHtPcfhbY7l6/EvPGfsX+mjtsg7B3MgY5N0FPb/cG4HlQnRebnssKAdKf02/K9vl/trJ78/2n4aOSyqmlyB0IjwwH+6dNAqid/nirPdtgYdeGSBP1FzSJT47mdoabqbf/PqY8j+wa9jOuQBC4ubs79VpbJ+t4Z37n89rUmbTH87P479teFe61yoKMSdMltiRHiMNoOURsJ72TidaOVEr8kowUiHDb6wiUJOo5kVnm0L7HLuvbvP1qrh+q3fQmf8R39SUD7EmuDGEerao+jE3Qp2VvdMSzTHcuXZLiTCeM7EBosECEYfeGSBB1HGuUSwzZW2+JOfnd+29ivfnuukuOp3Co7Ri9tfyqDNoj+tK72OClBl2iY6MS0JO417GRmJ4o7EBosEGXP6nGTpUjQ0c1oj6RsI5QZV2LszlEUz5qnDaKlTlVy/+jhC16oLjEBXnOv+oxTlEKp3tw4DIzjPqbkPKAfzddtjFVFwDM2imycDFUnC+s4MLp71ZfZmaMNoqV5l6MYJyfoIbEpT30fJG2jjg3TQiiTuraOA4OKboIpSeF3I8rqEgxqI/7e4cfc+tz5c0K5/RfrODCa6OaUoQ0yf8RLfu16pLKPHfRm9ejnPt4LSbqI6VK4Ay5Vr8wiTZextsXQef9iHQdGVcY0yQRecW191veAueoSUqRvHuk4zvwRz/lyTJVcLwm6JM0mu6Wk3/t6PyTj5xgu4mprbyeTcuP0XId+Klqswmfl50gnmcBT0ZQTv4SxOxu/xrpQRBvEM44+3ttbgi5J4Vwnk0s0fo49IXpOKOGj7DQt0U8wG+HSG1bh0/a7x74RWdqoroKLvtIjLHi56OdxlOvY7+vYO/ZLko6T+s5eE3Tp2+SSJB2uJ6Bh159jG2lwM8HcU4okPVXXEV5SCLzkIsZz5y8J8w6OCqXnNoYb29tgoQiq553lKX1n7wm6RJKONCagHNtIwsmdpAVK5ZLlZpIJyNkRtQZHhZJzL2dVjWH+yCZPnpp550lH2AZJ0CWS9Iz9ktIElGMb7sV6mcxBlMolx90kE1nzXgU3F2N3Cu7l9DJNkvRs9XIZ8WAJukQHmaGfw8p1UmjHbv0c62UybYVOvhRJunduJ5nIUipVcHMxdnvmvt8kSc/KRj3evTVogi7RQWbE5YVwbdGO3UmmPZKku+d+komsXCdWBTcXY7dHyfSbJOlZaMral3294eAJuvStg+TSjjRtJP07lWToNQz0biSTnDdI0t1KZpKJLCSVnDcYu91Jrt8kSU9aL2fOnxolQZe+Xdrxs5hgpuRe0rnXM77HYKCPXnLJeWMvSed2dx+uZ5PdeUqTTCQtyeS8wdjtxrUSS84bYW7yb5EHpaRZTOo9DxotQZe+Nc5S0sOYXxeD+CKHt2P3IQz03O4en2ST8wZJuhu/p5zsIDlJJ+cNxu7o/T6b7OYpJucNxvCk3Gqg5FwaOUGXvjXOc9XfGHz6ZTbZeXuudK/CBTqUK8VhI+mn1JPzRvi9K8VuUKx+TuGCLWQji+S8wdgdrWz6zb0k/YtxKDje77PJbtBKj2K32w313gettsVC0mezANDVg6SLnEraD1lti1LSjaQz41BylXWbXG2LS0m/WccBSQOdQxtS6L/+so6jhY3oY4eQfNXRSxi7o+Gu3+wTY7g7G9WPUVsO/YVG30HfN5vsFqrPY1DyHr/fldl58zZmk12luiKEcqXx3SrzNhnu9vhJnGmzditpmnNbHNid2PXs00bSf3JNziXG7khk32+GMZw8yIfm3q3lGF/MNEGXvit551xQnB5Ulw9f5lzS/ppwDr8UJcdjGry8yIsw0ZyKY0NWfqUtDo9bkHvTXGp0Yx2Itdlkt55Ndsw/bdBvBuRBLvwaLn1dj/UFTUvcnwolR0tJb20jQfC7pAUdaHurbXGhug1TNjeMjeqS9so6kBhRLjeqB0lzz23RUYn77WyyKyVKk0/0RXWbZUx/grF7NPeq22C2u+avIQ+Kjll7Nd9B3zeb7KrZZDeV9Kso2bR0q/rZ5uyadxR2JbgEcRhfVJfDVdaBxGqvXI6yzWE1R34q60ByE37mpSgJ7WKj+rx51pe7viaM3VNxcdeQml1IkvMX7B29+NU4lNxtZNxeo9pB37faFlNJV5I+2EaSlQfVO+ZL60BSEHYzF2JF/lQb1SuY2ZdkdkH7G8S96gtiKutA+uBxB72x2hZvVO+kvzeJyI971VVHa+tAvAi76VdiF7Mvt6r7TRLzDkIetBR93Ni+qG6va8sgotpB3xfOBl2ovgCJ3chhNStFU5Lz/oTdzKk4m36Ka9W75iTnHYX2dy7aXx82qh8vya55JGaT3deQtLPT9Lz9Nru2DsaTvUo42tZpmsqNbG9pP0XIg0rVeRBVccO7VX3nVhQLmtHuoD8VVvoXYiWpTxvVq8RXlL0NK7TfK0nvjEPxIqmdSmv0nydJ9i4Ozzvo+zi3+YModoBSQDXnUZhbDmC1Leaqx3H6uX5FWT3sJkFvMNHsBZ2nETrYg6LsKFNB6WYn16rb4to6kKGkkqBL30reF5I+jRFQpNxfXBgr5p6tJd9vWmMe2Zuo55vuEvRG6Cznkj7aRuJK1I0xJ3SwP6Btjii0v0tR0fGcbCaYKSXojUyrleg/R0Ki/qJs+s1Y0BaPdqu6rVbWgbzGbYLeCOVH8/BBsvO8a0nL2BtjjkjUmVhaYoD/ZqO6RPoqpwlmigl6I5O+lf7TCJtEkqjGjELIgy5Vt0cuhX3eRvWlom4Wkdwn6PtC+eaF8u4wG/eqJ5xLOs74hcH+Uvmcc/uium1y+VsEMh7g71VPMG9y7CdTTtAbiSbqJOaRyHST6F51Ur60DgTfC3nQXPnMJQ+5VZ0LuRvjk0rQG+EsWpOs59RIm6T8xssKEb4XBvsL1clSaoP9gx4Xjda2oeAlGQzwD6pX0pe53yycQ4LeSORYB9VwEUt8k6jpN7OqMvIq4zxISiQXSjJBf2qv0yyVXtLzRVIl5w0RP1pti3PVidKF/LZbkiGnEhvgaYfPyClBb4R+9VJ1u/ZQLZJ1lYdHT/rOUj7a2XPoNxMQ2mOpdPMgKcFcKIsEfd/eDmWp+jmX3hrqrepGWLGKno8n7Tb2ZOlW9aBeMainIyx0luHDwy5kM2DTDl+QY4K+b2/xPrZkPbnJZs7C71nTf8bedzJ+Jy7MJ8u9D295kJRBLpRdgv5UaKjn4aOUNFU8jfVe0l3zkWojRHdhwG/arOVC00Z1J3mnhDtKfG9vRX6/DVomOPt9JRPLlnJP0PeFn0XzMfaliclPNlGLrO980Pf9ZmUUBww9aZPNRyx5kJRpLpR9gv6SMFhPn3y8Uf+rn7fhn3eSvqoepL8ywUQXoYNtOtams5X6m2jeq26fd5LWeuwoKbmEpG+LnVPVba9pj1J/bXCjx36yaYfrXAbrIZCgvyyUwp/r+zZ96vh/q8f2e6e6/TLWZ26v7zzf+6fE+A1DoQ+c6nFe2bTLIRaVyIWeIEE/QZjcHIOOEaPaS+C7WFNeib4c2QZFAj4cEvTjdBz76UdxEsZvxCok8W+O+VzG9teRoAMAkCESdAAA4vMP6wAAAAAAAAAJOgAAAAAAUSBBBwAAAAAgAiToAAAAAABEgAQdAAAAAIAIkKADAAAAABABEnQAAAAAACJAgg4AAAAAQARI0AEAAAAAiAAJOgAAAAAAESBBBwAAAAAgAiToAAAAAABEgAQdAAAAAIAIkKADAAAAABABEnQAAAAAACJAgg4AAAAAQARI0AEAAAAAiAAJOgAAAAAAESBBBwAAAAAgAiToAAAAAABEgAQdAAAAAIAIkKADAAAAABABEnQAAAAAACJAgg4AAAAAQARI0AEAAAAAiAAJOgAAAAAAESBBBwAAAAAgAiToAAAAAABEgAQdAAAAAIAIkKADAAAAABABEnQAAAAAACJAgg4AAAAAQARI0AEAAAAAiAAJOgAAAAAAESBBBwAAAAAgAiToAAAAAABEgAQdAAAAAIAIkKADAAAAABABEnQAAAAAACJAgg4AAAAAQARI0AEAAAAAiAAJOgAAAAAAESBBBwAAAAAgAiToAAAAAABEgAQdAAAAAIAIkKADAAAAABABEnQAAAAAACJAgg4AAAAAQARI0AEAAAAAiAAJOgAAAAAAESBBBwAAAAAgAiToAAAAAABEgAQdAAAAAIAIkKADAAAAABABEnQAAAAAACJAgg4AAAAAQAT+aR0AAAAwcSfpJ+sgWvhqHQAAAGP5fxJV6UXDJa3sAAAAAElFTkSuQmCC" alt="Scope3" /></div>
                     <div>
                         <h1>Tag Request Assistant</h1>
-                        <p>Powered by AI • Fast • Accurate</p>
+                        <p>Powered by AI â€¢ Fast â€¢ Accurate</p>
                     </div>
                 </div>
                 <div class="status-badge">
@@ -548,7 +547,7 @@
 
         <div class="chat-container" id="chatContainer">
             <div class="welcome-card">
-                <h3>👋 Welcome to the Tag Request Assistant</h3>
+                <h3>ðŸ‘‹ Welcome to the Tag Request Assistant</h3>
                 <p>I'm here to help you create tag requests quickly and accurately. Just tell me what you need in plain English!</p>
                 <div class="welcome-examples">
                     <h4>Try saying:</h4>
@@ -563,9 +562,9 @@
 
         <div class="input-container">
             <div class="quick-actions">
-                <button class="quick-action" onclick="quickMessage('🚀 Quick example')">🚀 Quick example</button>
-                <button class="quick-action" onclick="quickMessage('💬 Start conversation')">💬 Start conversation</button>
-                <button class="quick-action" onclick="resetChat()">🔄 Reset</button>
+                <button class="quick-action" onclick="quickMessage('ðŸš€ Quick example')">ðŸš€ Quick example</button>
+                <button class="quick-action" onclick="quickMessage('ðŸ’¬ Start conversation')">ðŸ’¬ Start conversation</button>
+                <button class="quick-action" onclick="resetChat()">ðŸ”„ Reset</button>
             </div>
             <div class="input-row">
                 <input type="text" 
@@ -610,7 +609,11 @@
                 scopeeImg.className = 'scopee-avatar';
                 avatar.appendChild(scopeeImg);
             } else {
-                avatar.textContent = 'You';
+                const userImg = document.createElement('img');
+                userImg.src = 'Scope3_ProfilePicture.png';
+                userImg.alt = 'User';
+                userImg.className = 'scopee-avatar';
+                avatar.appendChild(userImg);
             }
             
             const contentDiv = document.createElement('div');
@@ -694,34 +697,34 @@
                     console.log('=== EXTRACTION ===');
                     console.log('AI Message:', originalMessage);
                     
-                    if (aiMessage.includes("i've extracted") || aiMessage.includes('✓')) {
-                        console.log('✓ Confirmation summary detected - extracting fields');
+                    if (aiMessage.includes("i've extracted") || aiMessage.includes('âœ“')) {
+                        console.log('âœ“ Confirmation summary detected - extracting fields');
                         
                         const lines = originalMessage.split('\n');
                         for (const line of lines) {
                             if (line.includes('Client:')) {
-                                const match = line.match(/Client:\s*([^✓]+)/i);
+                                const match = line.match(/Client:\s*([^âœ“]+)/i);
                                 if (match) {
                                     extractedData.account = match[1].trim();
                                     console.log('Extracted client:', extractedData.account);
                                 }
                             }
                             if (line.includes('Platform:')) {
-                                const match = line.match(/Platform:\s*([^✓]+)/i);
+                                const match = line.match(/Platform:\s*([^âœ“]+)/i);
                                 if (match) {
                                     extractedData.platform = match[1].trim();
                                     console.log('Extracted platform:', extractedData.platform);
                                 }
                             }
                             if (line.includes('Tag Type:')) {
-                                const match = line.match(/Tag Type:\s*([^✓]+)/i);
+                                const match = line.match(/Tag Type:\s*([^âœ“]+)/i);
                                 if (match) {
                                     extractedData.tagType = match[1].trim();
                                     console.log('Extracted tag type:', extractedData.tagType);
                                 }
                             }
                             if (line.includes('Priority:')) {
-                                const match = line.match(/Priority:\s*([^✓]+)/i);
+                                const match = line.match(/Priority:\s*([^âœ“]+)/i);
                                 if (match) {
                                     extractedData.priority = match[1].trim();
                                     console.log('Extracted priority:', extractedData.priority);
@@ -756,7 +759,7 @@
                     
                     // Auto-create ticket if confirmed and all fields present
                     if (isReadyToCreate && allFieldsPresent) {
-                        console.log('🎯 Auto-creating ticket...');
+                        console.log('ðŸŽ¯ Auto-creating ticket...');
                         await autoCreateTicket();
                         return; // Exit early, ticket creation will show its own message
                     }
@@ -774,12 +777,12 @@
                     
                     addMessage('assistant', responseHTML);
                 } else {
-                    addMessage('assistant', '❌ Sorry, something went wrong. Please try again.');
+                    addMessage('assistant', 'âŒ Sorry, something went wrong. Please try again.');
                 }
             } catch (error) {
                 hideThinking();
                 console.error('Error:', error);
-                addMessage('assistant', `❌ Error: ${error.message}. Please check your connection and try again.`);
+                addMessage('assistant', `âŒ Error: ${error.message}. Please check your connection and try again.`);
             }
             
             input.disabled = false;
@@ -795,7 +798,7 @@
                 priority: 'Priority'
             };
             
-            let html = '<div class="data-card"><h4>📋 Extracted Data</h4>';
+            let html = '<div class="data-card"><h4>ðŸ“‹ Extracted Data</h4>';
             
             for (const [key, label] of Object.entries(fields)) {
                 const value = data[key];
@@ -834,7 +837,7 @@
         }
 
         async function autoCreateTicket() {
-            console.log('🚀 Auto-creating ticket with data:', extractedData);
+            console.log('ðŸš€ Auto-creating ticket with data:', extractedData);
             showThinking();
             
             try {
@@ -858,14 +861,14 @@
                     
                     addMessage('assistant', `
                         <div style="background: var(--card-bg); border-left: 4px solid var(--scope3-lime); padding: 20px; border-radius: 12px; border: 1px solid var(--border-dark);">
-                            <h4 style="color: var(--scope3-lime); margin-bottom: 12px; font-size: 18px;">✅ Ticket Created Successfully!</h4>
+                            <h4 style="color: var(--scope3-lime); margin-bottom: 12px; font-size: 18px;">âœ… Ticket Created Successfully!</h4>
                             <p style="color: var(--text-white); margin-bottom: 8px;"><strong>Ticket ID:</strong> ${data.ticket.id}</p>
                             <p style="color: var(--text-light); margin-bottom: 16px;">Your tag request has been created and saved!</p>
                             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                <button class="action-btn primary" onclick="viewTicket('${data.ticket.id}')">📄 View Ticket</button>
-                                <button class="action-btn secondary" onclick="downloadTicket('${data.ticket.id}')">💾 Download</button>
-                                <button class="action-btn secondary" onclick="copyTicketLink('${data.ticket.id}')">🔗 Copy Link</button>
-                                <button class="action-btn secondary" onclick="resetChat()">➕ Create Another</button>
+                                <button class="action-btn primary" onclick="viewTicket('${data.ticket.id}')">ðŸ“„ View Ticket</button>
+                                <button class="action-btn secondary" onclick="downloadTicket('${data.ticket.id}')">ðŸ’¾ Download</button>
+                                <button class="action-btn secondary" onclick="copyTicketLink('${data.ticket.id}')">ðŸ”— Copy Link</button>
+                                <button class="action-btn secondary" onclick="resetChat()">âž• Create Another</button>
                             </div>
                         </div>
                     `);
@@ -873,12 +876,12 @@
                     // Reset extracted data for next ticket
                     extractedData = {};
                 } else {
-                    addMessage('assistant', `❌ Failed to create ticket: ${data.error}`);
+                    addMessage('assistant', `âŒ Failed to create ticket: ${data.error}`);
                 }
             } catch (error) {
                 hideThinking();
                 console.error('Error creating ticket:', error);
-                addMessage('assistant', `❌ Error creating ticket: ${error.message}`);
+                addMessage('assistant', `âŒ Error creating ticket: ${error.message}`);
             }
             
             input.disabled = false;
@@ -911,24 +914,24 @@
                         
                         addMessage('assistant', `
                             <div style="background: var(--card-bg); border-left: 4px solid var(--scope3-lime); padding: 20px; border-radius: 12px; border: 1px solid var(--border-dark);">
-                                <h4 style="color: var(--scope3-lime); margin-bottom: 12px; font-size: 18px;">✅ Ticket Created Successfully!</h4>
+                                <h4 style="color: var(--scope3-lime); margin-bottom: 12px; font-size: 18px;">âœ… Ticket Created Successfully!</h4>
                                 <p style="color: var(--text-white); margin-bottom: 8px;"><strong>Ticket ID:</strong> ${data.ticket.id}</p>
                                 <p style="color: var(--text-light); margin-bottom: 16px;">Your tag request has been created and saved!</p>
                                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                    <button class="action-btn primary" onclick="viewTicket('${data.ticket.id}')">📄 View Ticket</button>
-                                    <button class="action-btn secondary" onclick="downloadTicket('${data.ticket.id}')">💾 Download</button>
-                                    <button class="action-btn secondary" onclick="copyTicketLink('${data.ticket.id}')">🔗 Copy Link</button>
-                                    <button class="action-btn secondary" onclick="resetChat()">➕ Create Another</button>
+                                    <button class="action-btn primary" onclick="viewTicket('${data.ticket.id}')">ðŸ“„ View Ticket</button>
+                                    <button class="action-btn secondary" onclick="downloadTicket('${data.ticket.id}')">ðŸ’¾ Download</button>
+                                    <button class="action-btn secondary" onclick="copyTicketLink('${data.ticket.id}')">ðŸ”— Copy Link</button>
+                                    <button class="action-btn secondary" onclick="resetChat()">âž• Create Another</button>
                                 </div>
                             </div>
                         `);
                         extractedData = {};
                     } else {
-                        addMessage('assistant', `❌ Failed to create ticket: ${data.error}`);
+                        addMessage('assistant', `âŒ Failed to create ticket: ${data.error}`);
                     }
                 } catch (error) {
                     hideThinking();
-                    addMessage('assistant', `❌ Error creating ticket: ${error.message}`);
+                    addMessage('assistant', `âŒ Error creating ticket: ${error.message}`);
                 }
             } else if (action === 'reset') {
                 resetChat();
@@ -951,7 +954,7 @@
                     };
                     const ticketHTML = `
                         <div style="background: var(--card-bg); border: 2px solid var(--scope3-lime); padding: 24px; border-radius: 12px; margin: 10px 0;">
-                            <h3 style="color: var(--scope3-lime); margin-bottom: 16px; font-size: 18px;">📋 Ticket Details</h3>
+                            <h3 style="color: var(--scope3-lime); margin-bottom: 16px; font-size: 18px;">ðŸ“‹ Ticket Details</h3>
                             <div style="display: grid; gap: 12px;">
                                 <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border-dark);"><strong style="color: var(--text-light);">Ticket ID:</strong> <span style="color: var(--text-white);">${ticket.id}</span></div>
                                 <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border-dark);"><strong style="color: var(--text-light);">Client:</strong> <span style="color: var(--text-white);">${ticket.account || 'N/A'}</span></div>
@@ -965,11 +968,11 @@
                     `;
                     addMessage('assistant', ticketHTML);
                 } else {
-                    addMessage('assistant', `❌ Could not retrieve ticket: ${data.error || 'Unknown error'}`);
+                    addMessage('assistant', `âŒ Could not retrieve ticket: ${data.error || 'Unknown error'}`);
                 }
             } catch (error) {
                 hideThinking();
-                addMessage('assistant', `❌ Error fetching ticket: ${error.message}`);
+                addMessage('assistant', `âŒ Error fetching ticket: ${error.message}`);
             }
         }
 
@@ -991,30 +994,30 @@
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
                     
-                    addMessage('assistant', '✅ Ticket downloaded successfully!');
+                    addMessage('assistant', 'âœ… Ticket downloaded successfully!');
                 } else {
-                    addMessage('assistant', `❌ Could not download ticket: ${data.error || 'Unknown error'}`);
+                    addMessage('assistant', `âŒ Could not download ticket: ${data.error || 'Unknown error'}`);
                 }
             } catch (error) {
                 hideThinking();
-                addMessage('assistant', `❌ Error downloading ticket: ${error.message}`);
+                addMessage('assistant', `âŒ Error downloading ticket: ${error.message}`);
             }
         }
 
         function copyTicketLink(ticketId) {
             const link = `${API_BASE_URL}/tickets/${ticketId}?api_key=${API_KEY}`;
             navigator.clipboard.writeText(link).then(() => {
-                addMessage('assistant', `✅ Ticket link copied to clipboard!<br><br><code style="background: var(--card-bg); padding: 8px 12px; border-radius: 6px; display: inline-block; margin-top: 8px; font-size: 13px; color: var(--scope3-lime); border: 1px solid var(--border-dark);">${link}</code>`);
+                addMessage('assistant', `âœ… Ticket link copied to clipboard!<br><br><code style="background: var(--card-bg); padding: 8px 12px; border-radius: 6px; display: inline-block; margin-top: 8px; font-size: 13px; color: var(--scope3-lime); border: 1px solid var(--border-dark);">${link}</code>`);
             }).catch(err => {
-                addMessage('assistant', `❌ Failed to copy link: ${err.message}<br><br>Link: ${link}`);
+                addMessage('assistant', `âŒ Failed to copy link: ${err.message}<br><br>Link: ${link}`);
             });
         }
 
         function quickMessage(msg) {
-            if (msg === '🚀 Quick example') {
+            if (msg === 'ðŸš€ Quick example') {
                 input.value = 'urgent Nike tracker for DV360';
                 input.focus();
-            } else if (msg === '💬 Start conversation') {
+            } else if (msg === 'ðŸ’¬ Start conversation') {
                 input.value = 'I need a tag';
                 input.focus();
             } else {
@@ -1026,7 +1029,7 @@
         function resetChat() {
             chatContainer.innerHTML = `
                 <div class="welcome-card">
-                    <h3>👋 Welcome to the Tag Request Assistant</h3>
+                    <h3>ðŸ‘‹ Welcome to the Tag Request Assistant</h3>
                     <p>I'm here to help you create tag requests quickly and accurately. Just tell me what you need in plain English!</p>
                     <div class="welcome-examples">
                         <h4>Try saying:</h4>
